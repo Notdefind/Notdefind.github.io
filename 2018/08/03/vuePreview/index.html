@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="咸鱼王的博客">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="vue图片预览插件基于 PhotoSwipe参考 vue-preview 基于PhotoSwipe提供的API的vue插件移动端图片预览查看借鉴vue-preview的源代码，在此基础上根据自己业务进行了大部分修改。实现功能点：1 可点击图片列表预览图片2 可自定义点击元素预览图片（feature）3 实现图片预览自适应处理 （feature）4 修复了部分BUG （hotfix）#### in">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue图片预览插件">
+<meta property="og:url" content="http://yoursite.com/2018/08/03/vuePreview/index.html">
+<meta property="og:site_name" content="咸鱼王">
+<meta property="og:description" content="vue图片预览插件基于 PhotoSwipe参考 vue-preview 基于PhotoSwipe提供的API的vue插件移动端图片预览查看借鉴vue-preview的源代码，在此基础上根据自己业务进行了大部分修改。实现功能点：1 可点击图片列表预览图片2 可自定义点击元素预览图片（feature）3 实现图片预览自适应处理 （feature）4 修复了部分BUG （hotfix）#### in">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/rotateImages/1531454559129751.png">
+<meta property="og:image" content="http://yoursite.com/images/rotateImages/WechatIMG112.jpeg">
+<meta property="og:updated_time" content="2018-12-03T09:48:19.318Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue图片预览插件">
+<meta name="twitter:description" content="vue图片预览插件基于 PhotoSwipe参考 vue-preview 基于PhotoSwipe提供的API的vue插件移动端图片预览查看借鉴vue-preview的源代码，在此基础上根据自己业务进行了大部分修改。实现功能点：1 可点击图片列表预览图片2 可自定义点击元素预览图片（feature）3 实现图片预览自适应处理 （feature）4 修复了部分BUG （hotfix）#### in">
+<meta name="twitter:image" content="http://yoursite.com/images/rotateImages/1531454559129751.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/03/vuePreview/">
+
+
+
+
+
+  <title>vue图片预览插件 | 咸鱼王</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">咸鱼王</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/03/vuePreview/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="咸鱼王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xianyuwang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="咸鱼王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">vue图片预览插件</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-03T14:08:30+08:00">
+                2018-08-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="vue图片预览插件"><a href="#vue图片预览插件" class="headerlink" title="vue图片预览插件"></a>vue图片预览插件</h3><h3 id="基于-PhotoSwipe"><a href="#基于-PhotoSwipe" class="headerlink" title="基于 PhotoSwipe"></a>基于 <a href="https://github.com/dimsemenov/PhotoSwipe" target="_blank" rel="noopener">PhotoSwipe</a></h3><h3 id="参考-vue-preview-基于PhotoSwipe提供的API的vue插件"><a href="#参考-vue-preview-基于PhotoSwipe提供的API的vue插件" class="headerlink" title="参考 vue-preview 基于PhotoSwipe提供的API的vue插件"></a>参考 <a href="https://github.com/LS1231/vue-preview" target="_blank" rel="noopener">vue-preview</a> 基于PhotoSwipe提供的API的vue插件</h3><h3 id="移动端图片预览查看"><a href="#移动端图片预览查看" class="headerlink" title="移动端图片预览查看"></a>移动端图片预览查看</h3><h3 id="借鉴vue-preview的源代码，在此基础上根据自己业务进行了大部分修改。"><a href="#借鉴vue-preview的源代码，在此基础上根据自己业务进行了大部分修改。" class="headerlink" title="借鉴vue-preview的源代码，在此基础上根据自己业务进行了大部分修改。"></a>借鉴vue-preview的源代码，在此基础上根据自己业务进行了大部分修改。</h3><h3 id="实现功能点："><a href="#实现功能点：" class="headerlink" title="实现功能点："></a>实现功能点：</h3><h3 id="1-可点击图片列表预览图片"><a href="#1-可点击图片列表预览图片" class="headerlink" title="1 可点击图片列表预览图片"></a>1 可点击图片列表预览图片</h3><h3 id="2-可自定义点击元素预览图片（feature）"><a href="#2-可自定义点击元素预览图片（feature）" class="headerlink" title="2 可自定义点击元素预览图片（feature）"></a>2 可自定义点击元素预览图片（feature）</h3><h3 id="3-实现图片预览自适应处理-（feature）"><a href="#3-实现图片预览自适应处理-（feature）" class="headerlink" title="3 实现图片预览自适应处理 （feature）"></a>3 实现图片预览自适应处理 （feature）</h3><h3 id="4-修复了部分BUG-（hotfix）"><a href="#4-修复了部分BUG-（hotfix）" class="headerlink" title="4 修复了部分BUG （hotfix）"></a>4 修复了部分BUG （hotfix）</h3><p>#### index.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> PreviewComponent <span class="keyword">from</span> <span class="string">'./preview.vue'</span></span><br><span class="line"><span class="keyword">import</span> PhotoSwipe <span class="keyword">from</span> <span class="string">'photoswipe/dist/photoswipe'</span></span><br><span class="line"><span class="keyword">import</span> PhotoSwipeUIDefault <span class="keyword">from</span> <span class="string">'photoswipe/dist/photoswipe-ui-default'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> VuePreview = &#123;</span><br><span class="line">  install (Vue, options) &#123;</span><br><span class="line">    Vue.component(<span class="string">'VuePreview'</span>, &#123;</span><br><span class="line">      mixins: [PreviewComponent],</span><br><span class="line">      props: &#123;</span><br><span class="line">        slides: <span class="built_in">Array</span></span><br><span class="line">      &#125;,</span><br><span class="line">      methods: &#123;</span><br><span class="line">        <span class="comment">// index galleryElement disableAnimation</span></span><br><span class="line">        <span class="comment">// 打开图片的索引 选择的元素节点 是否开启打开动画</span></span><br><span class="line">        openPhotoSwipe (index, galleryElement, disableAnimation) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> pswpElement = <span class="built_in">document</span>.querySelectorAll(<span class="string">'.pswp'</span>)[<span class="number">0</span>]</span><br><span class="line">            <span class="keyword">let</span> gallery</span><br><span class="line">            <span class="keyword">let</span> photoSwipeOptions</span><br><span class="line">            <span class="keyword">let</span> items</span><br><span class="line">            <span class="comment">// 获取items 再打开插件</span></span><br><span class="line">            <span class="keyword">this</span>.parseThumbnailElements(galleryElement).then(<span class="function"><span class="params">items</span> =&gt;</span> &#123;</span><br><span class="line">              items = items;</span><br><span class="line">              <span class="comment">// 默认配置项</span></span><br><span class="line">              photoSwipeOptions = &#123;</span><br><span class="line">                <span class="comment">// 关闭hash模式 hash模式可通过URL连接获取打开图片索引 hash模式下微信端出现底部URL导航按钮</span></span><br><span class="line">                history: <span class="literal">false</span>,</span><br><span class="line">                getThumbBoundsFn: <span class="function"><span class="keyword">function</span> (<span class="params">index</span>) </span>&#123;</span><br><span class="line">                  <span class="comment">// x（X位置，相对于文档），y（Y位置，相对于文档），w（元素的宽度）。</span></span><br><span class="line">                  <span class="comment">// 高度将根据大图像的大小自动计算。例如，如果您返回&#123;x:0,y:0,w:50&#125;缩放动画将从页面的左上角开始。</span></span><br><span class="line">                  <span class="keyword">let</span> thumbnail = items[index].el.getElementsByTagName(<span class="string">'img'</span>)[<span class="number">0</span>];</span><br><span class="line">                  <span class="keyword">let</span> pageYScroll = <span class="built_in">window</span>.pageYOffset || <span class="built_in">document</span>.documentElement.scrollTop;</span><br><span class="line">                  <span class="keyword">let</span> rect = thumbnail.getBoundingClientRect();</span><br><span class="line">                  <span class="keyword">return</span> &#123;<span class="attr">x</span>: rect.left, <span class="attr">y</span>: rect.top + pageYScroll, <span class="attr">w</span>: rect.width&#125;;</span><br><span class="line"></span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="comment">// vue.use中的可选项</span></span><br><span class="line">                ...options</span><br><span class="line">              &#125;</span><br><span class="line"></span><br><span class="line">              <span class="comment">// 设置打开index</span></span><br><span class="line">              photoSwipeOptions.index = <span class="built_in">parseInt</span>(index, <span class="number">10</span>)</span><br><span class="line">              <span class="comment">// 判断下标是否存在</span></span><br><span class="line">              <span class="keyword">if</span> (<span class="built_in">isNaN</span>(photoSwipeOptions.index)) &#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="comment">// 是否开启放大效果</span></span><br><span class="line">              <span class="keyword">if</span> (disableAnimation) &#123;</span><br><span class="line">                <span class="comment">// 初始放大转换持续时间（以毫秒为单位）</span></span><br><span class="line">                photoSwipeOptions.showAnimationDuration = <span class="number">0</span></span><br><span class="line">              &#125;</span><br><span class="line">              <span class="comment">// http://photoswipe.com/documentation/options.html</span></span><br><span class="line">              <span class="comment">// pswpElement, PhotoSwipeUIDefault, items, photoSwipeOptions</span></span><br><span class="line">              <span class="comment">// 节点元素  photoswipe默认样式 处理好的items 配置项</span></span><br><span class="line">              gallery = <span class="keyword">new</span> PhotoSwipe(pswpElement, PhotoSwipeUIDefault, items, photoSwipeOptions)</span><br><span class="line"></span><br><span class="line">              gallery.init();</span><br><span class="line">              resolve(<span class="string">'success'</span>);</span><br><span class="line">            &#125;).catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">              <span class="built_in">console</span>.log(error)</span><br><span class="line">              reject(error);</span><br><span class="line">            &#125;)</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// 处理dome节点的自定义属性</span></span><br><span class="line">        <span class="comment">// parse slide data (url, title, size ...) from DOM elements</span></span><br><span class="line">        parseThumbnailElements (el) &#123;</span><br><span class="line">          <span class="comment">// 全部图片加载完再打开图片插件</span></span><br><span class="line">          <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> thumbElements = el.childNodes;</span><br><span class="line">            <span class="keyword">let</span> numNodes = thumbElements.length;</span><br><span class="line">            <span class="keyword">let</span> disposeItems = [];</span><br><span class="line">            <span class="keyword">let</span> originalItems = [];</span><br><span class="line">            <span class="keyword">let</span> resultList = [];</span><br><span class="line">            <span class="keyword">let</span> successCount = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">let</span> errorCount = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; numNodes; i++) &#123;</span><br><span class="line">              <span class="keyword">let</span> size</span><br><span class="line">              <span class="keyword">let</span> imageItem</span><br><span class="line">              <span class="keyword">let</span> figureEl</span><br><span class="line">              <span class="keyword">let</span> linkEl</span><br><span class="line">              figureEl = thumbElements[i] <span class="comment">// &lt;figure&gt; element</span></span><br><span class="line">              <span class="comment">// include only element nodes</span></span><br><span class="line">              <span class="keyword">if</span> (figureEl.nodeType !== <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">              &#125;</span><br><span class="line"></span><br><span class="line">              linkEl = figureEl.children[<span class="number">0</span>] <span class="comment">// &lt;a&gt; element</span></span><br><span class="line">              <span class="keyword">const</span> image = <span class="keyword">new</span> Image();</span><br><span class="line">              <span class="comment">// 进行自适应处理</span></span><br><span class="line">              image.src = linkEl.href;</span><br><span class="line">              originalItems.push(&#123;<span class="attr">src</span>: linkEl.href&#125;)</span><br><span class="line">              image.onload = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                size = [image.naturalWidth, image.naturalHeight];</span><br><span class="line">                imageItem = &#123;</span><br><span class="line">                  src: linkEl.getAttribute(<span class="string">'href'</span>),</span><br><span class="line">                  w: <span class="built_in">parseInt</span>(size[<span class="number">0</span>], <span class="number">10</span>),</span><br><span class="line">                  h: <span class="built_in">parseInt</span>(size[<span class="number">1</span>], <span class="number">10</span>)</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (figureEl.children.length &gt; <span class="number">1</span>) &#123;</span><br><span class="line">                  <span class="comment">// &lt;figcaption&gt; content</span></span><br><span class="line">                  imageItem.title = figureEl.children[<span class="number">1</span>].innerHTML</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (linkEl.children.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                  <span class="comment">// &lt;img&gt; thumbnail element, retrieving thumbnail url</span></span><br><span class="line">                  imageItem.msrc = linkEl.children[<span class="number">0</span>].getAttribute(<span class="string">'src'</span>)</span><br><span class="line">                &#125;</span><br><span class="line">                imageItem.el = figureEl <span class="comment">// save link to element for getThumbBoundsFn</span></span><br><span class="line">                disposeItems.push(imageItem)</span><br><span class="line"></span><br><span class="line">                successCount ++;</span><br><span class="line">                <span class="comment">// 全部加载成功</span></span><br><span class="line">                <span class="keyword">if</span> (successCount == numNodes) &#123;</span><br><span class="line">                  <span class="comment">// 处理加载顺序不同问题</span></span><br><span class="line">                  <span class="comment">// 加载后数组 与原数组对比 最终返回一个排序之后的数组</span></span><br><span class="line">                  originalItems.map(<span class="function">(<span class="params">originalItme, index</span>) =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (originalItme.src === disposeItems[index].src) &#123;</span><br><span class="line">                      resultList.push(disposeItems[index]);</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                      <span class="keyword">const</span> item = disposeItems.find(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">                        <span class="keyword">return</span> item.src === originalItme.src;</span><br><span class="line">                      &#125;);</span><br><span class="line">                      resultList.push(item);</span><br><span class="line">                    &#125;</span><br><span class="line">                  &#125;)</span><br><span class="line">                  resolve(resultList);</span><br><span class="line">                &#125;</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="comment">// 某些图片加载失败 只打开加载成功的图片</span></span><br><span class="line">              image.onerror = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">                errorCount ++;</span><br><span class="line">                <span class="keyword">if</span> (successCount + errorCount == numNodes) &#123;</span><br><span class="line">                  resolve(disposeItems);</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (errorCount == numNodes) &#123;</span><br><span class="line">                  reject(<span class="string">'图片加载失败'</span>)</span><br><span class="line">                &#125;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// 初始化插件 每张图片绑定点击事件</span></span><br><span class="line">        initPhotoSwipeFromDOM (gallerySelector) &#123;</span><br><span class="line">          <span class="comment">// loop through all gallery elements and bind events 每张图片绑定单独事件</span></span><br><span class="line">          <span class="keyword">const</span> galleryElements = <span class="built_in">document</span>.querySelectorAll(gallerySelector);</span><br><span class="line">          [].map.call(galleryElements, (galleryItem) =&gt; &#123;</span><br><span class="line">            galleryItem.onclick = <span class="keyword">this</span>.onThumbnailsClick;</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// 点击图片打开插件</span></span><br><span class="line">        onThumbnailsClick (e) &#123;</span><br><span class="line">          e = e || <span class="built_in">window</span>.event</span><br><span class="line">          e.preventDefault ? e.preventDefault() : e.returnValue = <span class="literal">false</span></span><br><span class="line">          <span class="keyword">let</span> eTarget = e.target || e.srcElement;</span><br><span class="line">           <span class="comment">// find nearest parent element</span></span><br><span class="line">          <span class="keyword">const</span> closest = <span class="function"><span class="keyword">function</span> <span class="title">closest</span> (<span class="params">el, fn</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> el &amp;&amp; (fn(el) ? el : closest(el.parentNode, fn))</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="comment">// find root element of slide</span></span><br><span class="line">          <span class="keyword">let</span> clickedListItem = closest(eTarget, <span class="function"><span class="keyword">function</span> (<span class="params">el</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> (el.tagName &amp;&amp; el.tagName.toUpperCase() === <span class="string">'FIGURE'</span>)</span><br><span class="line">          &#125;)</span><br><span class="line">          <span class="keyword">if</span> (!clickedListItem) &#123;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">          &#125;</span><br><span class="line">          <span class="comment">// find index of clicked item by looping through all child nodes</span></span><br><span class="line">          <span class="comment">// alternatively, you may define index via data- attribute</span></span><br><span class="line">          <span class="keyword">let</span> clickedGallery = clickedListItem.parentNode</span><br><span class="line">          <span class="keyword">let</span> childNodes = clickedListItem.parentNode.childNodes</span><br><span class="line">          <span class="keyword">let</span> numChildNodes = childNodes.length</span><br><span class="line">          <span class="keyword">let</span> nodeIndex = <span class="number">0</span></span><br><span class="line">          <span class="keyword">let</span> index</span><br><span class="line">          <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; numChildNodes; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (childNodes[i].nodeType !== <span class="number">1</span>) &#123;</span><br><span class="line">              <span class="keyword">continue</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (childNodes[i] === clickedListItem) &#123;</span><br><span class="line">              index = nodeIndex</span><br><span class="line">              <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">            nodeIndex++</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span> (index &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// open PhotoSwipe if valid index found</span></span><br><span class="line">            <span class="keyword">this</span>.openPhotoSwipe(index, clickedGallery)</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      mounted () &#123;</span><br><span class="line">        <span class="keyword">this</span>.initPhotoSwipeFromDOM(<span class="string">'.my-gallery'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">window</span> !== <span class="string">'undefined'</span> &amp;&amp; <span class="built_in">window</span>.Vue) &#123;</span><br><span class="line">  <span class="built_in">window</span>.Vue.use(VuePreview)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> VuePreview</span><br></pre></td></tr></table></figure></p>
+<p>#### preview.vue<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"my-gallery"</span> itemscope itemtype=<span class="string">"http://schema.org/ImageGallery"</span>&gt;</span><br><span class="line">      &lt;template v-<span class="keyword">for</span>=<span class="string">"item in slides"</span>&gt;</span><br><span class="line">        &lt;figure</span><br><span class="line">          itemprop=<span class="string">"associatedMedia"</span></span><br><span class="line">          itemscope</span><br><span class="line">          itemtype=<span class="string">"http://schema.org/ImageObject"</span>&gt;</span><br><span class="line">          &lt;a :href=<span class="string">"item.src"</span> itemprop=<span class="string">"contentUrl"</span> :data-size=<span class="string">"'' + item.w + 'x' + item.h"</span>&gt;</span><br><span class="line">            &lt;img :src=<span class="string">"item.msrc || item.src"</span> :alt=<span class="string">"item.alt"</span> itemprop=<span class="string">"thumbnail"</span>/&gt;</span><br><span class="line">          &lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp">          &lt;figcaption style="display: none" itemprop="caption description"&gt;&#123;&#123;item.title&#125;&#125;&lt;/</span>figcaption&gt;</span><br><span class="line">        &lt;<span class="regexp">/figure&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>template&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;div class="pswp" tabindex="-1" role="dialog" aria-hidden="true"&gt;</span></span><br><span class="line"><span class="regexp">      &lt;div class="pswp__bg"&gt;&lt;/</span>div&gt;</span><br><span class="line">      &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__scroll-wrap"</span>&gt;</span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__container"</span>&gt;</span><br><span class="line">          &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__item"</span>&gt;&lt;/div&gt;</span><br><span class="line">          &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__item"</span>&gt;&lt;/div&gt;</span><br><span class="line">          &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__item"</span>&gt;&lt;/div&gt;</span><br><span class="line">        &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        &lt;div class="pswp__ui pswp__ui--hidden"&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">          &lt;div class="pswp__top-bar"&gt;</span></span><br><span class="line"><span class="regexp">            &lt;!-- 避免图片长度为1时不显示图片下标 --&gt;</span></span><br><span class="line"><span class="regexp">            &lt;div style="display: block;" class="pswp__counter"&gt;&lt;/</span>div&gt;</span><br><span class="line">            &lt;button <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__button pswp__button--close"</span> title=<span class="string">"Close (Esc)"</span>&gt;&lt;/button&gt;</span><br><span class="line">            &lt;button <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__button pswp__button--share"</span> title=<span class="string">"Share"</span>&gt;&lt;/button&gt;</span><br><span class="line">            &lt;button <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__button pswp__button--fs"</span> title=<span class="string">"Toggle fullscreen"</span>&gt;&lt;/button&gt;</span><br><span class="line">            &lt;button <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__button pswp__button--zoom"</span> title=<span class="string">"Zoom in/out"</span>&gt;&lt;/button&gt;</span><br><span class="line">            &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__preloader"</span>&gt;</span><br><span class="line">              &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__preloader__icn"</span>&gt;</span><br><span class="line">                &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__preloader__cut"</span>&gt;</span><br><span class="line">                  &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__preloader__donut"</span>&gt;&lt;/div&gt;</span><br><span class="line">                &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">              &lt;/</span>div&gt;</span><br><span class="line">            &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">          &lt;/</span>div&gt;</span><br><span class="line">          &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__share-modal pswp__share-modal--hidden pswp__single-tap"</span>&gt;</span><br><span class="line">            &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__share-tooltip"</span>&gt;&lt;/div&gt;</span><br><span class="line">          &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">          &lt;button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"&gt;</span></span><br><span class="line"><span class="regexp">          &lt;/</span>button&gt;</span><br><span class="line">          &lt;button <span class="class"><span class="keyword">class</span></span>=<span class="string">"pswp__button pswp__button--arrow--right"</span> title=<span class="string">"Next (arrow right)"</span>&gt;</span><br><span class="line">          &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">          &lt;div class="pswp__caption"&gt;</span></span><br><span class="line"><span class="regexp">            &lt;div class="pswp__caption__center"&gt;&lt;/</span>div&gt;</span><br><span class="line">          &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        &lt;/</span>div&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">  @<span class="keyword">import</span> <span class="string">"~photoswipe/dist/photoswipe.css"</span>;</span><br><span class="line">  @<span class="keyword">import</span> <span class="string">"~photoswipe/dist/default-skin/default-skin.css"</span>;</span><br><span class="line">&lt;<span class="regexp">/style&gt;</span></span><br><span class="line"><span class="regexp">&lt;style lang="less"&gt;</span></span><br><span class="line"><span class="regexp">&lt;!-- 自定义样式 --&gt;</span></span><br><span class="line"><span class="regexp">.pswp__ui &#123;</span></span><br><span class="line"><span class="regexp">  .pswp__top-bar &#123;</span></span><br><span class="line"><span class="regexp">    background-color: #000;</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">.pswp__zoom-wrap &#123;</span></span><br><span class="line"><span class="regexp">  .pswp__img &#123;</span></span><br><span class="line"><span class="regexp">    padding-top: 5px;</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">@media screen and (min-width: 762px) &#123;</span></span><br><span class="line"><span class="regexp">  .pswp__zoom-wrap &#123;</span></span><br><span class="line"><span class="regexp">    .pswp__img &#123;</span></span><br><span class="line"><span class="regexp">      padding-top: 44px;</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;/</span>style&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=<span class="string">"course-demand"</span>&gt;</span><br><span class="line">    &lt;div id=<span class="string">"image-list"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"image-list image-lists"</span>&gt;</span><br><span class="line">      &lt;vue-preview :slides=<span class="string">"remarkOutImage"</span>&gt;&lt;/vue-preview&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"public-music"</span> id=<span class="string">"public-music"</span>&gt;</span><br><span class="line">      &lt;vue-preview ref=<span class="string">"preview"</span> :slides=<span class="string">"publicImage"</span>&gt;&lt;/vue-preview&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;button @click=<span class="string">"openImage"</span>&gt;打开图片&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">import Vue from 'vue';</span></span><br><span class="line"><span class="regexp">import preview from '../</span>../components/vuePreview<span class="string">';</span></span><br><span class="line"><span class="string">import &#123; Indicator, Toast &#125; from '</span>mint-ui<span class="string">';</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// 配置自定义options</span></span><br><span class="line"><span class="string">Vue.use(preview, &#123;</span></span><br><span class="line"><span class="string">  mainClass: '</span>pswp--minimal--dark<span class="string">',</span></span><br><span class="line"><span class="string">  barsSize: &#123;top: 0, bottom: 0&#125;,</span></span><br><span class="line"><span class="string">  captionEl: false,</span></span><br><span class="line"><span class="string">  fullscreenEl: false,</span></span><br><span class="line"><span class="string">  shareEl: false,</span></span><br><span class="line"><span class="string">  bgOpacity: 1,</span></span><br><span class="line"><span class="string">  tapToClose: false,</span></span><br><span class="line"><span class="string">  tapToToggleControls: false,</span></span><br><span class="line"><span class="string">  pinchToClose: false,</span></span><br><span class="line"><span class="string">&#125;);</span></span><br><span class="line"><span class="string">export default &#123;</span></span><br><span class="line"><span class="string">  data () &#123;</span></span><br><span class="line"><span class="string">    return &#123;</span></span><br><span class="line"><span class="string">      remarkOutImage: [</span></span><br><span class="line"><span class="string">         &#123;</span></span><br><span class="line"><span class="string">            src: '</span>https:<span class="comment">//farm2.staticflickr.com/1043/5186867718_06b2e9e551_b.jpg',</span></span><br><span class="line">        &#125;,</span><br><span class="line">      ],</span><br><span class="line">      publicImage: [</span><br><span class="line"></span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created () &#123;</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line">  watch: &#123;</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    openImage () &#123;</span><br><span class="line">      Indicator.open(&#123;</span><br><span class="line">        text: <span class="string">'Loading...'</span>,</span><br><span class="line">        spinnerType: <span class="string">'fading-circle'</span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="keyword">this</span>.publicImage = [</span><br><span class="line">        &#123;</span><br><span class="line">            src: <span class="string">'https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_b.jpg'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            src: <span class="string">'https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_b.jpg'</span>,</span><br><span class="line">        &#125;</span><br><span class="line">      ],</span><br><span class="line">      <span class="keyword">this</span>.$nextTick(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.$refs[<span class="string">'preview'</span>].openPhotoSwipe(<span class="number">0</span>, <span class="built_in">document</span>.querySelectorAll(<span class="string">'.my-gallery'</span>)[<span class="number">1</span>]).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="comment">// 成功回调</span></span><br><span class="line">          Indicator.close();</span><br><span class="line">        &#125;).catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="comment">// 错误回调</span></span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="问题点-amp-新功能点："><a href="#问题点-amp-新功能点：" class="headerlink" title="问题点&amp;新功能点："></a>问题点&amp;新功能点：</h3><h4 id="1-hash模式下微信新版本会显示出底部导航"><a href="#1-hash模式下微信新版本会显示出底部导航" class="headerlink" title="1 hash模式下微信新版本会显示出底部导航"></a>1 hash模式下微信新版本会显示出底部导航</h4><p><img src="/images/rotateImages/1531454559129751.png" alt="问题图片"></p>
+<ul>
+<li>问题原因 预览插件打开hash模式后在url上会带上pid gid 记录打打开图片的索引</li>
+<li>由于url变化触发了微信内置浏览器导航机制，所以右下角显示出导航栏</li>
+<li>解决方案，关闭hash模式</li>
+</ul>
+<h4 id="2-点击按钮打开图片功能"><a href="#2-点击按钮打开图片功能" class="headerlink" title="2 点击按钮打开图片功能"></a>2 点击按钮打开图片功能</h4><ul>
+<li>PhotoSwipe提供内置方法</li>
+<li>创建PhotoSwipe实例 并执行内部方法</li>
+<li>gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);</li>
+<li>gallery.init();</li>
+<li>通过内部封装，暴露出openPhotoSwipe方法</li>
+<li>通过promise 提供打开成功或者失败的回调</li>
+<li>外部通过 ref 直接调用传参</li>
+</ul>
+<h4 id="3-点击按钮打开图片预览偶发性黑屏"><a href="#3-点击按钮打开图片预览偶发性黑屏" class="headerlink" title="3 点击按钮打开图片预览偶发性黑屏"></a>3 点击按钮打开图片预览偶发性黑屏</h4><ul>
+<li>问题原因 图片未加载完成，打开插件后图片没有显示出来，导致只显示底部黑色遮罩层。</li>
+<li>通过Network中设置3G模拟网络差可必现此BUG。</li>
+<li>解决方案 点击按钮打开图片时，必须等图片全部加载完成之后再打开图片预览。</li>
+<li>此方案存在缺陷,若图片过多或过大可能导致打开速度较慢。</li>
+</ul>
+<h4 id="4-图片自适应"><a href="#4-图片自适应" class="headerlink" title="4 图片自适应"></a>4 图片自适应</h4><ul>
+<li><a href="https://github.com/LS1231/vue-preview/issues/39" target="_blank" rel="noopener">社区提供的hack方法</a> </li>
+<li>在预览前根据图片原始尺寸设置data-size属性,插件内部通过获取data-size属性进行自适应。</li>
+<li>上述3中所提到的,由于打开图片必须等图片加载完成再打开。所以可以在插件内部实现图片自适应，</li>
+<li>通过获取naturalWidth naturalHeight 进行处理。</li>
+</ul>
+<h4 id="5-提供PhotoSwipe-options-自定义配置"><a href="#5-提供PhotoSwipe-options-自定义配置" class="headerlink" title="5 提供PhotoSwipe options 自定义配置"></a>5 提供PhotoSwipe options 自定义配置</h4><ul>
+<li><a href="http://photoswipe.com/documentation/options.html" target="_blank" rel="noopener">PhotoSwipe提供选项</a> </li>
+</ul>
+<p>###最终效果<br><img src="/images/rotateImages/WechatIMG112.jpeg" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/30/rotateImage/" rel="next" title="关于旋转图片调整角度及自适应问题">
+                <i class="fa fa-chevron-left"></i> 关于旋转图片调整角度及自适应问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/03/redux connect/" rel="prev" title="redux connect用法">
+                redux connect用法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/xianyuwang.jpg" alt="咸鱼王">
+          <p class="site-author-name" itemprop="name">咸鱼王</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives">
+            
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Notdefind" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5333359020" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      微博
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#vue图片预览插件"><span class="nav-number">1.</span> <span class="nav-text">vue图片预览插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于-PhotoSwipe"><span class="nav-number">2.</span> <span class="nav-text">基于 PhotoSwipe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考-vue-preview-基于PhotoSwipe提供的API的vue插件"><span class="nav-number">3.</span> <span class="nav-text">参考 vue-preview 基于PhotoSwipe提供的API的vue插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移动端图片预览查看"><span class="nav-number">4.</span> <span class="nav-text">移动端图片预览查看</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#借鉴vue-preview的源代码，在此基础上根据自己业务进行了大部分修改。"><span class="nav-number">5.</span> <span class="nav-text">借鉴vue-preview的源代码，在此基础上根据自己业务进行了大部分修改。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现功能点："><span class="nav-number">6.</span> <span class="nav-text">实现功能点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-可点击图片列表预览图片"><span class="nav-number">7.</span> <span class="nav-text">1 可点击图片列表预览图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-可自定义点击元素预览图片（feature）"><span class="nav-number">8.</span> <span class="nav-text">2 可自定义点击元素预览图片（feature）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-实现图片预览自适应处理-（feature）"><span class="nav-number">9.</span> <span class="nav-text">3 实现图片预览自适应处理 （feature）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-修复了部分BUG-（hotfix）"><span class="nav-number">10.</span> <span class="nav-text">4 修复了部分BUG （hotfix）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#示例"><span class="nav-number">10.1.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题点-amp-新功能点："><span class="nav-number">11.</span> <span class="nav-text">问题点&amp;新功能点：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-hash模式下微信新版本会显示出底部导航"><span class="nav-number">11.1.</span> <span class="nav-text">1 hash模式下微信新版本会显示出底部导航</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-点击按钮打开图片功能"><span class="nav-number">11.2.</span> <span class="nav-text">2 点击按钮打开图片功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-点击按钮打开图片预览偶发性黑屏"><span class="nav-number">11.3.</span> <span class="nav-text">3 点击按钮打开图片预览偶发性黑屏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-图片自适应"><span class="nav-number">11.4.</span> <span class="nav-text">4 图片自适应</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-提供PhotoSwipe-options-自定义配置"><span class="nav-number">11.5.</span> <span class="nav-text">5 提供PhotoSwipe options 自定义配置</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2015 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">咸鱼王</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
