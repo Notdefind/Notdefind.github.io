@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="咸鱼王的博客">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="reactNativereactNative 于react的区别运行环境：react 运行在web端基于浏览器，通过浏览器引擎解析HTML CSS JS等渲染view。reactNative 运行在APP端，通过brieg 传递至native端，native端根据不同的数据属性渲染不同的view。开发环境react node webpack等打包成build文件，运行在浏览器。reactNativ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="咸鱼王">
+<meta property="og:url" content="http://yoursite.com/2018/12/20/reactNative/index.html">
+<meta property="og:site_name" content="咸鱼王">
+<meta property="og:description" content="reactNativereactNative 于react的区别运行环境：react 运行在web端基于浏览器，通过浏览器引擎解析HTML CSS JS等渲染view。reactNative 运行在APP端，通过brieg 传递至native端，native端根据不同的数据属性渲染不同的view。开发环境react node webpack等打包成build文件，运行在浏览器。reactNativ">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/1545295282188.jpg">
+<meta property="og:updated_time" content="2018-12-20T08:47:28.431Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="咸鱼王">
+<meta name="twitter:description" content="reactNativereactNative 于react的区别运行环境：react 运行在web端基于浏览器，通过浏览器引擎解析HTML CSS JS等渲染view。reactNative 运行在APP端，通过brieg 传递至native端，native端根据不同的数据属性渲染不同的view。开发环境react node webpack等打包成build文件，运行在浏览器。reactNativ">
+<meta name="twitter:image" content="http://yoursite.com/images/1545295282188.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/20/reactNative/">
+
+
+
+
+
+  <title> | 咸鱼王</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">咸鱼王</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/20/reactNative/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="咸鱼王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xianyuwang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="咸鱼王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline"></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-20T16:20:20+08:00">
+                2018-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="reactNative"><a href="#reactNative" class="headerlink" title="reactNative"></a>reactNative</h2><h3 id="reactNative-于react的区别"><a href="#reactNative-于react的区别" class="headerlink" title="reactNative 于react的区别"></a>reactNative 于react的区别</h3><h4 id="运行环境："><a href="#运行环境：" class="headerlink" title="运行环境："></a>运行环境：</h4><h5 id="react-运行在web端基于浏览器，通过浏览器引擎解析HTML-CSS-JS等渲染view。"><a href="#react-运行在web端基于浏览器，通过浏览器引擎解析HTML-CSS-JS等渲染view。" class="headerlink" title="react 运行在web端基于浏览器，通过浏览器引擎解析HTML CSS JS等渲染view。"></a>react 运行在web端基于浏览器，通过浏览器引擎解析HTML CSS JS等渲染view。</h5><h5 id="reactNative-运行在APP端，通过brieg-传递至native端，native端根据不同的数据属性渲染不同的view。"><a href="#reactNative-运行在APP端，通过brieg-传递至native端，native端根据不同的数据属性渲染不同的view。" class="headerlink" title="reactNative 运行在APP端，通过brieg 传递至native端，native端根据不同的数据属性渲染不同的view。"></a>reactNative 运行在APP端，通过brieg 传递至native端，native端根据不同的数据属性渲染不同的view。</h5><h4 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h4><h5 id="react-node-webpack等打包成build文件，运行在浏览器。"><a href="#react-node-webpack等打包成build文件，运行在浏览器。" class="headerlink" title="react node webpack等打包成build文件，运行在浏览器。"></a>react node webpack等打包成build文件，运行在浏览器。</h5><h5 id="reactNative-通过native端开发软件-Xcode-AndroidStudio，再基于node运行本地服务，native端连接至本地服务运行。"><a href="#reactNative-通过native端开发软件-Xcode-AndroidStudio，再基于node运行本地服务，native端连接至本地服务运行。" class="headerlink" title="reactNative 通过native端开发软件 Xcode AndroidStudio，再基于node运行本地服务，native端连接至本地服务运行。"></a>reactNative 通过native端开发软件 Xcode AndroidStudio，再基于node运行本地服务，native端连接至本地服务运行。</h5><h5 id="reactNative-端自带打包功能，最终编译为index-xxxx-budle-js。"><a href="#reactNative-端自带打包功能，最终编译为index-xxxx-budle-js。" class="headerlink" title="reactNative 端自带打包功能，最终编译为index.xxxx.budle.js。"></a>reactNative 端自带打包功能，最终编译为index.xxxx.budle.js。</h5><h5 id="iso-Android-端通过运行解释index-xxxx-budle-js-运行渲染出对应native端的view。"><a href="#iso-Android-端通过运行解释index-xxxx-budle-js-运行渲染出对应native端的view。" class="headerlink" title="iso Android 端通过运行解释index.xxxx.budle.js 运行渲染出对应native端的view。"></a>iso Android 端通过运行解释index.xxxx.budle.js 运行渲染出对应native端的view。</h5><p><a href="https://reactnative.cn/docs/getting-started.html" target="_blank" rel="noopener">reactNative安装环境</a></p>
+<h4 id="语法差异"><a href="#语法差异" class="headerlink" title="语法差异"></a>语法差异</h4><h5 id="视图层"><a href="#视图层" class="headerlink" title="视图层"></a>视图层</h5><h5 id="react-div-span-img-等标签"><a href="#react-div-span-img-等标签" class="headerlink" title="react div span img 等标签"></a>react div span img 等标签</h5><h5 id="reactNative-View-Text-Image-等-必须首字母大写-。"><a href="#reactNative-View-Text-Image-等-必须首字母大写-。" class="headerlink" title="reactNative View Text Image 等(必须首字母大写)。"></a>reactNative View Text Image 等(必须首字母大写)。</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// example</span></span><br><span class="line"></span><br><span class="line">&lt;img src=<span class="string">"xxxx"</span> /&gt;</span><br><span class="line"></span><br><span class="line">&lt;Image source=&#123;&#123;<span class="attr">uri</span>:<span class="string">"xxxx"</span>&#125;&#125; /&gt; <span class="comment">// 引入网络资源</span></span><br><span class="line">&lt;Image source=&#123;<span class="built_in">require</span>(<span class="string">'/react-native/img/favicon.png'</span>)/&gt; <span class="comment">// 导入本地资源</span></span><br><span class="line">&lt;Image source=&#123;&#123;<span class="attr">uri</span>: <span class="string">'data:image/png;base64,iVBxxx'</span>&#125;&#125; /&gt;</span><br><span class="line"><span class="comment">// base64 资源</span></span><br></pre></td></tr></table></figure>
+<h5 id="样式层"><a href="#样式层" class="headerlink" title="样式层"></a>样式层</h5><h5 id="react-float-flex-position-Grids-等"><a href="#react-float-flex-position-Grids-等" class="headerlink" title="react float flex position Grids 等"></a>react float flex position Grids 等</h5><h5 id="reactNative-flexbox-position"><a href="#reactNative-flexbox-position" class="headerlink" title="reactNative flexbox position"></a>reactNative flexbox position</h5><h3 id="flex-布局"><a href="#flex-布局" class="headerlink" title="flex 布局"></a>flex 布局</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"box"</span>&gt;box&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">.box &#123;</span></span><br><span class="line"><span class="regexp">    dispaly: flex;</span></span><br><span class="line"><span class="regexp">    background-color: '#fff'</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">import &#123; View, Text, StyleSheet &#125; from 'react-native';</span></span><br><span class="line"><span class="regexp">render() &#123;</span></span><br><span class="line"><span class="regexp">    const &#123; checkStep &#125; = this.state;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">    return (</span></span><br><span class="line"><span class="regexp">    &lt;View style=&#123;styles.box&#125;&gt;</span></span><br><span class="line"><span class="regexp">       &lt;Text&gt;box&lt;/</span>Text&gt;</span><br><span class="line">    &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">const styles = StyleSheet.create(&#123;</span></span><br><span class="line"><span class="regexp">    box: &#123;</span></span><br><span class="line"><span class="regexp">        backgroundColor: '#fff',</span></span><br><span class="line"><span class="regexp">        flex: 1,</span></span><br><span class="line"><span class="regexp">        flexDirection: 'row'</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br></pre></td></tr></table></figure>
+<h5 id="reactNative中style以对象的形式存在，并且遵循驼峰命名方式。"><a href="#reactNative中style以对象的形式存在，并且遵循驼峰命名方式。" class="headerlink" title="reactNative中style以对象的形式存在，并且遵循驼峰命名方式。"></a>reactNative中style以对象的形式存在，并且遵循驼峰命名方式。</h5><h5 id="border-color-–-gt-borderColor"><a href="#border-color-–-gt-borderColor" class="headerlink" title="border-color – &gt; borderColor"></a>border-color – &gt; borderColor</h5><h5 id="background-color-–-gt-backgroundColor"><a href="#background-color-–-gt-backgroundColor" class="headerlink" title="background-color – &gt; backgroundColor"></a>background-color – &gt; backgroundColor</h5><h3 id="React-Native-中的-Flexbox-的工作原理和-web-上的-CSS-基本一致，当然也存在少许差异。首先是默认值不同：flexDirection的默认值是column而不是row，而flex也只能指定一个数字值。"><a href="#React-Native-中的-Flexbox-的工作原理和-web-上的-CSS-基本一致，当然也存在少许差异。首先是默认值不同：flexDirection的默认值是column而不是row，而flex也只能指定一个数字值。" class="headerlink" title="React Native 中的 Flexbox 的工作原理和 web 上的 CSS 基本一致，当然也存在少许差异。首先是默认值不同：flexDirection的默认值是column而不是row，而flex也只能指定一个数字值。"></a>React Native 中的 Flexbox 的工作原理和 web 上的 CSS 基本一致，当然也存在少许差异。首先是默认值不同：flexDirection的默认值是column而不是row，而flex也只能指定一个数字值。</h3><h3 id="position-布局"><a href="#position-布局" class="headerlink" title="position 布局"></a>position 布局</h3><h5 id="position-relative"><a href="#position-relative" class="headerlink" title="position relative"></a>position relative</h5><h5 id="相对布局。这个和html的position有很大的不同，他的相对布局不是相对于父容器，而是相对于兄弟节点。"><a href="#相对布局。这个和html的position有很大的不同，他的相对布局不是相对于父容器，而是相对于兄弟节点。" class="headerlink" title="相对布局。这个和html的position有很大的不同，他的相对布局不是相对于父容器，而是相对于兄弟节点。"></a>相对布局。这个和html的position有很大的不同，他的相对布局不是相对于父容器，而是相对于兄弟节点。</h5><h5 id="position-absolute"><a href="#position-absolute" class="headerlink" title="position absolute"></a>position absolute</h5><h5 id="绝对布局。这个是相对于父容器进行据对布局。绝对布局是脱离文档流的，不过奇怪的是依旧在文档层次结构里面，这个和html的position也很大不一样。另外还有一个和html不一样的是，html中position-absolute要求父容器的position必须是absolute或者relative，如果第一层父容器position不是absolute或者relative，在html会依次向上递归查询直到找到为止，然后居于找到的父容器绝对定位。"><a href="#绝对布局。这个是相对于父容器进行据对布局。绝对布局是脱离文档流的，不过奇怪的是依旧在文档层次结构里面，这个和html的position也很大不一样。另外还有一个和html不一样的是，html中position-absolute要求父容器的position必须是absolute或者relative，如果第一层父容器position不是absolute或者relative，在html会依次向上递归查询直到找到为止，然后居于找到的父容器绝对定位。" class="headerlink" title="绝对布局。这个是相对于父容器进行据对布局。绝对布局是脱离文档流的，不过奇怪的是依旧在文档层次结构里面，这个和html的position也很大不一样。另外还有一个和html不一样的是，html中position:absolute要求父容器的position必须是absolute或者relative，如果第一层父容器position不是absolute或者relative，在html会依次向上递归查询直到找到为止，然后居于找到的父容器绝对定位。"></a>绝对布局。这个是相对于父容器进行据对布局。绝对布局是脱离文档流的，不过奇怪的是依旧在文档层次结构里面，这个和html的position也很大不一样。另外还有一个和html不一样的是，html中position:absolute要求父容器的position必须是absolute或者relative，如果第一层父容器position不是absolute或者relative，在html会依次向上递归查询直到找到为止，然后居于找到的父容器绝对定位。</h5><h5 id="表现层"><a href="#表现层" class="headerlink" title="表现层"></a>表现层</h5><h5 id="react-基于browser-具有特有对象-window-document-等。"><a href="#react-基于browser-具有特有对象-window-document-等。" class="headerlink" title="react 基于browser 具有特有对象 window document 等。"></a>react 基于browser 具有特有对象 window document 等。</h5><h5 id="React-Native-不具有window等对象。"><a href="#React-Native-不具有window等对象。" class="headerlink" title="React Native 不具有window等对象。"></a>React Native 不具有window等对象。</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"box"</span>&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">'id'</span>).onclick = funciton () &#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; Button &#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</span><br><span class="line"></span><br><span class="line">&lt;Button</span><br><span class="line">  onPress=&#123;onPressLearnMore&#125;</span><br><span class="line">/&gt;</span><br><span class="line"></span><br><span class="line">onPressLearnMore () &#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="或者添加点击元素"><a href="#或者添加点击元素" class="headerlink" title="或者添加点击元素"></a>或者添加点击元素</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; TouchableOpacity &#125; <span class="keyword">from</span> <span class="string">'react-native'</span>; </span><br><span class="line"></span><br><span class="line">&lt;TouchableOpacity onPress=&#123;<span class="keyword">this</span>._onPressButton&#125;&gt;</span><br><span class="line">    &lt;Image</span><br><span class="line">    style=&#123;styles.button&#125;</span><br><span class="line">    source=&#123;<span class="built_in">require</span>(<span class="string">'./myButton.png'</span>)&#125;</span><br><span class="line">    /&gt;</span><br><span class="line">&lt;<span class="regexp">/TouchableOpacity&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="导航-Navigator"><a href="#导航-Navigator" class="headerlink" title="导航 Navigator"></a>导航 Navigator</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">ListView</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123; </span><br><span class="line">    <span class="keyword">static</span> navigationOptions = <span class="function">(<span class="params">&#123; navigation &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            headerTitle: (&lt;Text&gt;标题&lt;/Text&gt;),</span><br><span class="line">            headerLeft: (&lt;Text&gt;左边&lt;/Text&gt;),</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="ios-andriod-有不同的导航特性。"><a href="#ios-andriod-有不同的导航特性。" class="headerlink" title="ios andriod 有不同的导航特性。"></a>ios andriod 有不同的导航特性。</h4><h3 id="iso标题居中-andriod-标题居左等"><a href="#iso标题居中-andriod-标题居左等" class="headerlink" title="iso标题居中 andriod 标题居左等"></a>iso标题居中 andriod 标题居左等</h3><p><a href="https://github.com/wix/react-native-navigation" target="_blank" rel="noopener">下面这个库提供了在两个平台都适用的原生导航</a></p>
+<h3 id="路由-router"><a href="#路由-router" class="headerlink" title="路由 router"></a>路由 router</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; navigate &#125; = <span class="keyword">this</span>.props.navigation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> params = &#123;</span><br><span class="line">    id: <span class="number">123</span>,</span><br><span class="line">    query: <span class="string">'xxxx'</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">navigate(<span class="string">'details'</span>, params);</span><br></pre></td></tr></table></figure>
+<p><a href="https://reactnative.cn/docs/navigatorios/#push" target="_blank" rel="noopener">reactNative navigation</a></p>
+<h4 id="details-对应router中定义的组件。"><a href="#details-对应router中定义的组件。" class="headerlink" title="details 对应router中定义的组件。"></a>details 对应router中定义的组件。</h4><h3 id="网络请求"><a href="#网络请求" class="headerlink" title="网络请求"></a>网络请求</h3><h4 id="React-Native-提供了和-web-标准一致的Fetch-API，用于满足开发者访问网络的需求。"><a href="#React-Native-提供了和-web-标准一致的Fetch-API，用于满足开发者访问网络的需求。" class="headerlink" title="React Native 提供了和 web 标准一致的Fetch API，用于满足开发者访问网络的需求。"></a>React Native 提供了和 web 标准一致的Fetch API，用于满足开发者访问网络的需求。</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fetch(<span class="string">"https://mywebsite.com/mydata.json"</span>);</span><br><span class="line"><span class="comment">// Fetch 还有可选的第二个参数，可以用来定制 HTTP 请求一些参数。你可以指定 header 参数，或是指定使用 POST 方法，又或是提交数据等等</span></span><br><span class="line">fetch(<span class="string">"https://mywebsite.com/endpoint/"</span>, &#123;</span><br><span class="line">  method: <span class="string">"POST"</span>,</span><br><span class="line">  headers: &#123;</span><br><span class="line">    Accept: <span class="string">"application/json"</span>,</span><br><span class="line">    <span class="string">"Content-Type"</span>: <span class="string">"application/json"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  body: <span class="built_in">JSON</span>.stringify(&#123;</span><br><span class="line">    firstParam: <span class="string">"yourValue"</span>,</span><br><span class="line">    secondParam: <span class="string">"yourOtherValue"</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="热更新方案"><a href="#热更新方案" class="headerlink" title="热更新方案"></a>热更新方案</h3><h4 id="每当客户端打开时询问服务器端是否有新bundle，有则下载。"><a href="#每当客户端打开时询问服务器端是否有新bundle，有则下载。" class="headerlink" title="每当客户端打开时询问服务器端是否有新bundle，有则下载。"></a>每当客户端打开时询问服务器端是否有新bundle，有则下载。</h4><h4 id="更新机制，什么时候需要热更新-什么时候需要更新APP。"><a href="#更新机制，什么时候需要热更新-什么时候需要更新APP。" class="headerlink" title="更新机制，什么时候需要热更新,什么时候需要更新APP。"></a>更新机制，什么时候需要热更新,什么时候需要更新APP。</h4><h4 id="当APP配置修改时需要重新发版，若只修改JS-budle中的文件则只需要热更新。"><a href="#当APP配置修改时需要重新发版，若只修改JS-budle中的文件则只需要热更新。" class="headerlink" title="当APP配置修改时需要重新发版，若只修改JS budle中的文件则只需要热更新。"></a>当APP配置修改时需要重新发版，若只修改JS budle中的文件则只需要热更新。</h4><p><img src="/images/1545295282188.jpg" alt="示意图"></p>
+<h3 id="打包发布"><a href="#打包发布" class="headerlink" title="打包发布"></a>打包发布</h3><h4 id="ios-xcode"><a href="#ios-xcode" class="headerlink" title="ios xcode"></a>ios xcode</h4><h4 id="android-androidStudio"><a href="#android-androidStudio" class="headerlink" title="android androidStudio"></a>android androidStudio</h4>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/20/D3实现环形图/" rel="next" title="D3实现环形图">
+                <i class="fa fa-chevron-left"></i> D3实现环形图
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/xianyuwang.jpg" alt="咸鱼王">
+          <p class="site-author-name" itemprop="name">咸鱼王</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives">
+            
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Notdefind" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5333359020" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      微博
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#reactNative"><span class="nav-number">1.</span> <span class="nav-text">reactNative</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#reactNative-于react的区别"><span class="nav-number">1.1.</span> <span class="nav-text">reactNative 于react的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#运行环境："><span class="nav-number">1.1.1.</span> <span class="nav-text">运行环境：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#react-运行在web端基于浏览器，通过浏览器引擎解析HTML-CSS-JS等渲染view。"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">react 运行在web端基于浏览器，通过浏览器引擎解析HTML CSS JS等渲染view。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#reactNative-运行在APP端，通过brieg-传递至native端，native端根据不同的数据属性渲染不同的view。"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">reactNative 运行在APP端，通过brieg 传递至native端，native端根据不同的数据属性渲染不同的view。</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开发环境"><span class="nav-number">1.1.2.</span> <span class="nav-text">开发环境</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#react-node-webpack等打包成build文件，运行在浏览器。"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">react node webpack等打包成build文件，运行在浏览器。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#reactNative-通过native端开发软件-Xcode-AndroidStudio，再基于node运行本地服务，native端连接至本地服务运行。"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">reactNative 通过native端开发软件 Xcode AndroidStudio，再基于node运行本地服务，native端连接至本地服务运行。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#reactNative-端自带打包功能，最终编译为index-xxxx-budle-js。"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">reactNative 端自带打包功能，最终编译为index.xxxx.budle.js。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#iso-Android-端通过运行解释index-xxxx-budle-js-运行渲染出对应native端的view。"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">iso Android 端通过运行解释index.xxxx.budle.js 运行渲染出对应native端的view。</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#语法差异"><span class="nav-number">1.1.3.</span> <span class="nav-text">语法差异</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#视图层"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">视图层</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#react-div-span-img-等标签"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">react div span img 等标签</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#reactNative-View-Text-Image-等-必须首字母大写-。"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">reactNative View Text Image 等(必须首字母大写)。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#样式层"><span class="nav-number">1.1.3.4.</span> <span class="nav-text">样式层</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#react-float-flex-position-Grids-等"><span class="nav-number">1.1.3.5.</span> <span class="nav-text">react float flex position Grids 等</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#reactNative-flexbox-position"><span class="nav-number">1.1.3.6.</span> <span class="nav-text">reactNative flexbox position</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#flex-布局"><span class="nav-number">1.2.</span> <span class="nav-text">flex 布局</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#reactNative中style以对象的形式存在，并且遵循驼峰命名方式。"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">reactNative中style以对象的形式存在，并且遵循驼峰命名方式。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#border-color-–-gt-borderColor"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">border-color – &gt; borderColor</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#background-color-–-gt-backgroundColor"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">background-color – &gt; backgroundColor</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Native-中的-Flexbox-的工作原理和-web-上的-CSS-基本一致，当然也存在少许差异。首先是默认值不同：flexDirection的默认值是column而不是row，而flex也只能指定一个数字值。"><span class="nav-number">1.3.</span> <span class="nav-text">React Native 中的 Flexbox 的工作原理和 web 上的 CSS 基本一致，当然也存在少许差异。首先是默认值不同：flexDirection的默认值是column而不是row，而flex也只能指定一个数字值。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#position-布局"><span class="nav-number">1.4.</span> <span class="nav-text">position 布局</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#position-relative"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">position relative</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#相对布局。这个和html的position有很大的不同，他的相对布局不是相对于父容器，而是相对于兄弟节点。"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">相对布局。这个和html的position有很大的不同，他的相对布局不是相对于父容器，而是相对于兄弟节点。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#position-absolute"><span class="nav-number">1.4.0.3.</span> <span class="nav-text">position absolute</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#绝对布局。这个是相对于父容器进行据对布局。绝对布局是脱离文档流的，不过奇怪的是依旧在文档层次结构里面，这个和html的position也很大不一样。另外还有一个和html不一样的是，html中position-absolute要求父容器的position必须是absolute或者relative，如果第一层父容器position不是absolute或者relative，在html会依次向上递归查询直到找到为止，然后居于找到的父容器绝对定位。"><span class="nav-number">1.4.0.4.</span> <span class="nav-text">绝对布局。这个是相对于父容器进行据对布局。绝对布局是脱离文档流的，不过奇怪的是依旧在文档层次结构里面，这个和html的position也很大不一样。另外还有一个和html不一样的是，html中position:absolute要求父容器的position必须是absolute或者relative，如果第一层父容器position不是absolute或者relative，在html会依次向上递归查询直到找到为止，然后居于找到的父容器绝对定位。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#表现层"><span class="nav-number">1.4.0.5.</span> <span class="nav-text">表现层</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#react-基于browser-具有特有对象-window-document-等。"><span class="nav-number">1.4.0.6.</span> <span class="nav-text">react 基于browser 具有特有对象 window document 等。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#React-Native-不具有window等对象。"><span class="nav-number">1.4.0.7.</span> <span class="nav-text">React Native 不具有window等对象。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#或者添加点击元素"><span class="nav-number">1.4.0.8.</span> <span class="nav-text">或者添加点击元素</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#导航-Navigator"><span class="nav-number">1.5.</span> <span class="nav-text">导航 Navigator</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ios-andriod-有不同的导航特性。"><span class="nav-number">1.5.1.</span> <span class="nav-text">ios andriod 有不同的导航特性。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iso标题居中-andriod-标题居左等"><span class="nav-number">1.6.</span> <span class="nav-text">iso标题居中 andriod 标题居左等</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由-router"><span class="nav-number">1.7.</span> <span class="nav-text">路由 router</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#details-对应router中定义的组件。"><span class="nav-number">1.7.1.</span> <span class="nav-text">details 对应router中定义的组件。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络请求"><span class="nav-number">1.8.</span> <span class="nav-text">网络请求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#React-Native-提供了和-web-标准一致的Fetch-API，用于满足开发者访问网络的需求。"><span class="nav-number">1.8.1.</span> <span class="nav-text">React Native 提供了和 web 标准一致的Fetch API，用于满足开发者访问网络的需求。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#热更新方案"><span class="nav-number">1.9.</span> <span class="nav-text">热更新方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#每当客户端打开时询问服务器端是否有新bundle，有则下载。"><span class="nav-number">1.9.1.</span> <span class="nav-text">每当客户端打开时询问服务器端是否有新bundle，有则下载。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新机制，什么时候需要热更新-什么时候需要更新APP。"><span class="nav-number">1.9.2.</span> <span class="nav-text">更新机制，什么时候需要热更新,什么时候需要更新APP。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#当APP配置修改时需要重新发版，若只修改JS-budle中的文件则只需要热更新。"><span class="nav-number">1.9.3.</span> <span class="nav-text">当APP配置修改时需要重新发版，若只修改JS budle中的文件则只需要热更新。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包发布"><span class="nav-number">1.10.</span> <span class="nav-text">打包发布</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ios-xcode"><span class="nav-number">1.10.1.</span> <span class="nav-text">ios xcode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#android-androidStudio"><span class="nav-number">1.10.2.</span> <span class="nav-text">android androidStudio</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2015 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">咸鱼王</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
