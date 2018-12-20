@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="咸鱼王的博客">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="用户体验一直是前端开发需要考虑的重要部分，在数据请求时常见到锁屏的loading动画，而现在越来越多的产品倾向于使用Skeleton Screen Loading(骨架屏)替代，以优化用户体验。为什么我们需要骨架页面骨架页面是在页面真正解析和应用启动之前给用户展示页面的 CSS 样式和页面布局，并通过骨架页面的明暗变化，告知用户页面正在努力加载中，让用户感知页面似乎加载得比以前快了。当应用启动、数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="骨架屏">
+<meta property="og:url" content="http://yoursite.com/2018/12/20/骨架屏/index.html">
+<meta property="og:site_name" content="咸鱼王">
+<meta property="og:description" content="用户体验一直是前端开发需要考虑的重要部分，在数据请求时常见到锁屏的loading动画，而现在越来越多的产品倾向于使用Skeleton Screen Loading(骨架屏)替代，以优化用户体验。为什么我们需要骨架页面骨架页面是在页面真正解析和应用启动之前给用户展示页面的 CSS 样式和页面布局，并通过骨架页面的明暗变化，告知用户页面正在努力加载中，让用户感知页面似乎加载得比以前快了。当应用启动、数">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://confluence.miaokecloud.com/download/attachments/5606765/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-08-03%20%E4%B8%8B%E5%8D%882.00.10.png?version=1&modificationDate=1533284079000&api=v2">
+<meta property="og:image" content="http://confluence.miaokecloud.com/download/attachments/5606765/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-08-03%20%E4%B8%8B%E5%8D%881.19.03.png?version=1&modificationDate=1533284097000&api=v2">
+<meta property="og:updated_time" content="2018-12-20T05:52:48.582Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="骨架屏">
+<meta name="twitter:description" content="用户体验一直是前端开发需要考虑的重要部分，在数据请求时常见到锁屏的loading动画，而现在越来越多的产品倾向于使用Skeleton Screen Loading(骨架屏)替代，以优化用户体验。为什么我们需要骨架页面骨架页面是在页面真正解析和应用启动之前给用户展示页面的 CSS 样式和页面布局，并通过骨架页面的明暗变化，告知用户页面正在努力加载中，让用户感知页面似乎加载得比以前快了。当应用启动、数">
+<meta name="twitter:image" content="http://confluence.miaokecloud.com/download/attachments/5606765/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-08-03%20%E4%B8%8B%E5%8D%882.00.10.png?version=1&modificationDate=1533284079000&api=v2">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/20/骨架屏/">
+
+
+
+
+
+  <title>骨架屏 | 咸鱼王</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">咸鱼王</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/20/骨架屏/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="咸鱼王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xianyuwang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="咸鱼王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">骨架屏</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-20T11:45:20+08:00">
+                2018-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="用户体验一直是前端开发需要考虑的重要部分，在数据请求时常见到锁屏的loading动画，而现在越来越多的产品倾向于使用Skeleton-Screen-Loading-骨架屏-替代，以优化用户体验。"><a href="#用户体验一直是前端开发需要考虑的重要部分，在数据请求时常见到锁屏的loading动画，而现在越来越多的产品倾向于使用Skeleton-Screen-Loading-骨架屏-替代，以优化用户体验。" class="headerlink" title="用户体验一直是前端开发需要考虑的重要部分，在数据请求时常见到锁屏的loading动画，而现在越来越多的产品倾向于使用Skeleton Screen Loading(骨架屏)替代，以优化用户体验。"></a>用户体验一直是前端开发需要考虑的重要部分，在数据请求时常见到锁屏的loading动画，而现在越来越多的产品倾向于使用Skeleton Screen Loading(骨架屏)替代，以优化用户体验。</h3><h2 id="为什么我们需要骨架页面"><a href="#为什么我们需要骨架页面" class="headerlink" title="为什么我们需要骨架页面"></a>为什么我们需要骨架页面</h2><h4 id="骨架页面是在页面真正解析和应用启动之前给用户展示页面的-CSS-样式和页面布局，并通过骨架页面的明暗变化，告知用户页面正在努力加载中，让用户感知页面似乎加载得比以前快了。当应用启动、数据获取后，通过真实数据渲染的页面替换骨架页面。"><a href="#骨架页面是在页面真正解析和应用启动之前给用户展示页面的-CSS-样式和页面布局，并通过骨架页面的明暗变化，告知用户页面正在努力加载中，让用户感知页面似乎加载得比以前快了。当应用启动、数据获取后，通过真实数据渲染的页面替换骨架页面。" class="headerlink" title="骨架页面是在页面真正解析和应用启动之前给用户展示页面的 CSS 样式和页面布局，并通过骨架页面的明暗变化，告知用户页面正在努力加载中，让用户感知页面似乎加载得比以前快了。当应用启动、数据获取后，通过真实数据渲染的页面替换骨架页面。"></a>骨架页面是在页面真正解析和应用启动之前给用户展示页面的 CSS 样式和页面布局，并通过骨架页面的明暗变化，告知用户页面正在努力加载中，让用户感知页面似乎加载得比以前快了。当应用启动、数据获取后，通过真实数据渲染的页面替换骨架页面。</h4><h4 id="在骨架页面出现之前，很多应用在真实数据获取之前，都是采用-Loading-图标的形式告诉用户数据正在加载，请等待，但是用户此时无法感知即将呈现的页面，也无法确定等待的时长，千篇一律的-Loading-图标已经让用户产生了审美疲劳，长时间的等待促使用户-产生等待焦虑，根据-Google-Research-的研究显示，53-的用户在等待加载-3s-后，选择关闭-Web-页面或应用，导致用户流失。而骨架页面让用户觉得数据已经加载好，只是还在渲染过程中，这也是为什么用户觉得页面加载得比之前快的原因所在。同时由于骨架页面和真实页面样式布局完全一致，在用户视觉感知上，骨架页面可以平滑的切换到真实数据渲染的页面。如果是通过-Loading-图标切换到最终页面，用户感知上会显得比较突兀。"><a href="#在骨架页面出现之前，很多应用在真实数据获取之前，都是采用-Loading-图标的形式告诉用户数据正在加载，请等待，但是用户此时无法感知即将呈现的页面，也无法确定等待的时长，千篇一律的-Loading-图标已经让用户产生了审美疲劳，长时间的等待促使用户-产生等待焦虑，根据-Google-Research-的研究显示，53-的用户在等待加载-3s-后，选择关闭-Web-页面或应用，导致用户流失。而骨架页面让用户觉得数据已经加载好，只是还在渲染过程中，这也是为什么用户觉得页面加载得比之前快的原因所在。同时由于骨架页面和真实页面样式布局完全一致，在用户视觉感知上，骨架页面可以平滑的切换到真实数据渲染的页面。如果是通过-Loading-图标切换到最终页面，用户感知上会显得比较突兀。" class="headerlink" title="在骨架页面出现之前，很多应用在真实数据获取之前，都是采用 Loading 图标的形式告诉用户数据正在加载，请等待，但是用户此时无法感知即将呈现的页面，也无法确定等待的时长，千篇一律的 Loading 图标已经让用户产生了审美疲劳，长时间的等待促使用户 产生等待焦虑，根据 Google Research 的研究显示，53% 的用户在等待加载 3s 后，选择关闭 Web 页面或应用，导致用户流失。而骨架页面让用户觉得数据已经加载好，只是还在渲染过程中，这也是为什么用户觉得页面加载得比之前快的原因所在。同时由于骨架页面和真实页面样式布局完全一致，在用户视觉感知上，骨架页面可以平滑的切换到真实数据渲染的页面。如果是通过 Loading 图标切换到最终页面，用户感知上会显得比较突兀。"></a>在骨架页面出现之前，很多应用在真实数据获取之前，都是采用 Loading 图标的形式告诉用户数据正在加载，请等待，但是用户此时无法感知即将呈现的页面，也无法确定等待的时长，千篇一律的 Loading 图标已经让用户产生了审美疲劳，长时间的等待促使用户 产生等待焦虑，根据 Google Research 的研究显示，53% 的用户在等待加载 3s 后，选择关闭 Web 页面或应用，导致用户流失。而骨架页面让用户觉得数据已经加载好，只是还在渲染过程中，这也是为什么用户觉得页面加载得比之前快的原因所在。同时由于骨架页面和真实页面样式布局完全一致，在用户视觉感知上，骨架页面可以平滑的切换到真实数据渲染的页面。如果是通过 Loading 图标切换到最终页面，用户感知上会显得比较突兀。</h4><h3 id="在-JS-代码解析完成之前，页面不会展示任何内容，也就是所谓的白屏。用户是极其不喜欢看到白屏的，什么都没有展示，用户很有可能怀疑网络或者应用出了什么问题。-拿-Vue-来说，在页面加载出来之前会先对数据做一些处理，比如-开始创建、初始化数据、编译模板、挂载Dom等，这也是需要消耗时间的，-这也势必导致页面启动阶段比非-JS-驱动（比如-jQuery-应用）的页面要慢一些。这就是vue与jq的页面的区别。"><a href="#在-JS-代码解析完成之前，页面不会展示任何内容，也就是所谓的白屏。用户是极其不喜欢看到白屏的，什么都没有展示，用户很有可能怀疑网络或者应用出了什么问题。-拿-Vue-来说，在页面加载出来之前会先对数据做一些处理，比如-开始创建、初始化数据、编译模板、挂载Dom等，这也是需要消耗时间的，-这也势必导致页面启动阶段比非-JS-驱动（比如-jQuery-应用）的页面要慢一些。这就是vue与jq的页面的区别。" class="headerlink" title="在 JS 代码解析完成之前，页面不会展示任何内容，也就是所谓的白屏。用户是极其不喜欢看到白屏的，什么都没有展示，用户很有可能怀疑网络或者应用出了什么问题。 拿 Vue 来说，在页面加载出来之前会先对数据做一些处理，比如 开始创建、初始化数据、编译模板、挂载Dom等，这也是需要消耗时间的， 这也势必导致页面启动阶段比非 JS 驱动（比如 jQuery 应用）的页面要慢一些。这就是vue与jq的页面的区别。"></a>在 JS 代码解析完成之前，页面不会展示任何内容，也就是所谓的白屏。用户是极其不喜欢看到白屏的，什么都没有展示，用户很有可能怀疑网络或者应用出了什么问题。 拿 Vue 来说，在页面加载出来之前会先对数据做一些处理，比如 开始创建、初始化数据、编译模板、挂载Dom等，这也是需要消耗时间的， 这也势必导致页面启动阶段比非 JS 驱动（比如 jQuery 应用）的页面要慢一些。这就是vue与jq的页面的区别。</h3><h2 id="骨架屏是什么"><a href="#骨架屏是什么" class="headerlink" title="骨架屏是什么"></a>骨架屏是什么</h2><h3 id="骨架页面（Skeleton-Page）指的是当你打开一个移动端-web-页面，在页面解析和数据加载之前，首先给用户展示页面的大概样式。在骨架页面中，图片、文字、图标都将通过灰色矩形块来展示，在真实页面展示之前，用户能够感知到即将加载页面的基本-CSS-样式和页面布局。饿了么移动-web-端骨架页面如题图所示。"><a href="#骨架页面（Skeleton-Page）指的是当你打开一个移动端-web-页面，在页面解析和数据加载之前，首先给用户展示页面的大概样式。在骨架页面中，图片、文字、图标都将通过灰色矩形块来展示，在真实页面展示之前，用户能够感知到即将加载页面的基本-CSS-样式和页面布局。饿了么移动-web-端骨架页面如题图所示。" class="headerlink" title="骨架页面（Skeleton Page）指的是当你打开一个移动端 web 页面，在页面解析和数据加载之前，首先给用户展示页面的大概样式。在骨架页面中，图片、文字、图标都将通过灰色矩形块来展示，在真实页面展示之前，用户能够感知到即将加载页面的基本 CSS 样式和页面布局。饿了么移动 web 端骨架页面如题图所示。"></a>骨架页面（Skeleton Page）指的是当你打开一个移动端 web 页面，在页面解析和数据加载之前，首先给用户展示页面的大概样式。在骨架页面中，图片、文字、图标都将通过灰色矩形块来展示，在真实页面展示之前，用户能够感知到即将加载页面的基本 CSS 样式和页面布局。饿了么移动 web 端骨架页面如题图所示。</h3><p><img src="http://confluence.miaokecloud.com/download/attachments/5606765/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-08-03%20%E4%B8%8B%E5%8D%882.00.10.png?version=1&amp;modificationDate=1533284079000&amp;api=v2" alt=""></p>
+<h3 id="在生成骨架页面的方案中，首先将页面根据不同元素分成不同的块，分块细则如下："><a href="#在生成骨架页面的方案中，首先将页面根据不同元素分成不同的块，分块细则如下：" class="headerlink" title="在生成骨架页面的方案中，首先将页面根据不同元素分成不同的块，分块细则如下："></a>在生成骨架页面的方案中，首先将页面根据不同元素分成不同的块，分块细则如下：</h3><h3 id="文本块：包含唯一文本节点的-DOM-元素被视为文本块"><a href="#文本块：包含唯一文本节点的-DOM-元素被视为文本块" class="headerlink" title="文本块：包含唯一文本节点的 DOM 元素被视为文本块"></a>文本块：包含唯一文本节点的 DOM 元素被视为文本块</h3><h3 id="图片块：IMG-元素或者背景为图片的元素被视为图片块"><a href="#图片块：IMG-元素或者背景为图片的元素被视为图片块" class="headerlink" title="图片块：IMG 元素或者背景为图片的元素被视为图片块"></a>图片块：IMG 元素或者背景为图片的元素被视为图片块</h3><h3 id="SVG块：SVG-元素被视为-SVG-块"><a href="#SVG块：SVG-元素被视为-SVG-块" class="headerlink" title="SVG块：SVG 元素被视为 SVG 块"></a>SVG块：SVG 元素被视为 SVG 块</h3><h3 id="伪元素块：-before-、-after-伪类元素由于在页面中也会有展示，因此也需要做处理，被视为伪元素块"><a href="#伪元素块：-before-、-after-伪类元素由于在页面中也会有展示，因此也需要做处理，被视为伪元素块" class="headerlink" title="伪元素块：::before 、 ::after 伪类元素由于在页面中也会有展示，因此也需要做处理，被视为伪元素块"></a>伪元素块：::before 、 ::after 伪类元素由于在页面中也会有展示，因此也需要做处理，被视为伪元素块</h3><h3 id="按钮块：BUTTON、INPUT-type-button-、A-role-button-等元素被视为按钮块，这儿需要注意一点，我们只将role-button-的-A-元素视为按钮块，其实如果需要将一个-A-元素视为按钮，为其添加一个-role-button-的特性是很有必要的，这也符合了前端可访问性的要求。-role-button-代表该元素是一个按钮"><a href="#按钮块：BUTTON、INPUT-type-button-、A-role-button-等元素被视为按钮块，这儿需要注意一点，我们只将role-button-的-A-元素视为按钮块，其实如果需要将一个-A-元素视为按钮，为其添加一个-role-button-的特性是很有必要的，这也符合了前端可访问性的要求。-role-button-代表该元素是一个按钮" class="headerlink" title="按钮块：BUTTON、INPUT [type=button]、A [role=button] 等元素被视为按钮块，这儿需要注意一点，我们只将role=button 的 A 元素视为按钮块，其实如果需要将一个 A 元素视为按钮，为其添加一个 role=button 的特性是很有必要的，这也符合了前端可访问性的要求。(role=button 代表该元素是一个按钮)"></a>按钮块：BUTTON、INPUT [type=button]、A [role=button] 等元素被视为按钮块，这儿需要注意一点，我们只将role=button 的 A 元素视为按钮块，其实如果需要将一个 A 元素视为按钮，为其添加一个 role=button 的特性是很有必要的，这也符合了前端可访问性的要求。(role=button 代表该元素是一个按钮)</h3><h3 id="将元素区分为不同块后，下一步就是对这些块分别进行处理，包括元素的增减和样式的覆盖，目的只有一个，就是将这些块转化为骨架页面的样式，也就是题图中右边的样子"><a href="#将元素区分为不同块后，下一步就是对这些块分别进行处理，包括元素的增减和样式的覆盖，目的只有一个，就是将这些块转化为骨架页面的样式，也就是题图中右边的样子" class="headerlink" title="将元素区分为不同块后，下一步就是对这些块分别进行处理，包括元素的增减和样式的覆盖，目的只有一个，就是将这些块转化为骨架页面的样式，也就是题图中右边的样子"></a>将元素区分为不同块后，下一步就是对这些块分别进行处理，包括元素的增减和样式的覆盖，目的只有一个，就是将这些块转化为骨架页面的样式，也就是题图中右边的样子</h3><p><img src="http://confluence.miaokecloud.com/download/attachments/5606765/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202018-08-03%20%E4%B8%8B%E5%8D%881.19.03.png?version=1&amp;modificationDate=1533284097000&amp;api=v2" alt=""></p>
+<h2 id="骨架屏优势："><a href="#骨架屏优势：" class="headerlink" title="骨架屏优势："></a>骨架屏优势：</h2><h3 id="锁屏loading在一定程度限制了用户的操作，所以为了进一步提升用户体验，Skeleton-Screen被越来越多的公司产品采用，如：Facebook、简书、知乎、掘金等，在动态、文章加载时预先渲染出结构布局，数据加载完成后再填充数据显示，这样的好处在于不干扰用户操作，使用户对于加载的内容有一个大致的预期，特别是弱网络环境下极大的优化了用户体验。"><a href="#锁屏loading在一定程度限制了用户的操作，所以为了进一步提升用户体验，Skeleton-Screen被越来越多的公司产品采用，如：Facebook、简书、知乎、掘金等，在动态、文章加载时预先渲染出结构布局，数据加载完成后再填充数据显示，这样的好处在于不干扰用户操作，使用户对于加载的内容有一个大致的预期，特别是弱网络环境下极大的优化了用户体验。" class="headerlink" title="锁屏loading在一定程度限制了用户的操作，所以为了进一步提升用户体验，Skeleton Screen被越来越多的公司产品采用，如：Facebook、简书、知乎、掘金等，在动态、文章加载时预先渲染出结构布局，数据加载完成后再填充数据显示，这样的好处在于不干扰用户操作，使用户对于加载的内容有一个大致的预期，特别是弱网络环境下极大的优化了用户体验。"></a>锁屏loading在一定程度限制了用户的操作，所以为了进一步提升用户体验，Skeleton Screen被越来越多的公司产品采用，如：Facebook、简书、知乎、掘金等，在动态、文章加载时预先渲染出结构布局，数据加载完成后再填充数据显示，这样的好处在于不干扰用户操作，使用户对于加载的内容有一个大致的预期，特别是弱网络环境下极大的优化了用户体验。</h3><h3 id="实现的主要步骤："><a href="#实现的主要步骤：" class="headerlink" title="实现的主要步骤："></a>实现的主要步骤：</h3><p> 1.创建与显示内容相似的html结构，<br>  2.在需要显示内容的元素上增加背景色。</p>
+<h3 id="第一种："><a href="#第一种：" class="headerlink" title="第一种："></a>第一种：</h3><h3 id="prerender-预生成-渲染骨架屏："><a href="#prerender-预生成-渲染骨架屏：" class="headerlink" title="prerender(预生成)渲染骨架屏："></a>prerender(预生成)渲染骨架屏：</h3><h3 id="首先要配置webpack-plugin-文件位置-build-webpack-prod-conf-js-，"><a href="#首先要配置webpack-plugin-文件位置-build-webpack-prod-conf-js-，" class="headerlink" title="首先要配置webpack-plugin(文件位置:build/webpack.prod.conf.js)，"></a>首先要配置webpack-plugin(文件位置:build/webpack.prod.conf.js)，</h3><h3 id="已经有实现好的prerender-spa-plugin。"><a href="#已经有实现好的prerender-spa-plugin。" class="headerlink" title="已经有实现好的prerender-spa-plugin。"></a>已经有实现好的prerender-spa-plugin。</h3><h3 id="是提供一个简单的预呈现解决方案，该解决方案易于扩展，可用于使用webpack构建的任何站点或单页面应用程序"><a href="#是提供一个简单的预呈现解决方案，该解决方案易于扩展，可用于使用webpack构建的任何站点或单页面应用程序" class="headerlink" title="(是提供一个简单的预呈现解决方案，该解决方案易于扩展，可用于使用webpack构建的任何站点或单页面应用程序)"></a>(是提供一个简单的预呈现解决方案，该解决方案易于扩展，可用于使用webpack构建的任何站点或单页面应用程序)</h3><h3 id="具体代码如下："><a href="#具体代码如下：" class="headerlink" title="具体代码如下："></a>具体代码如下：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">var path = require(&apos;path&apos;)</span><br><span class="line">var PrerenderSpaPlugin = require(&apos;prerender-spa-plugin&apos;)</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  // ...</span><br><span class="line">  plugins: [</span><br><span class="line">    new PrerenderSpaPlugin(</span><br><span class="line">      // Absolute path to compiled SPA</span><br><span class="line">      path.join(__dirname, &apos;../dist&apos;),</span><br><span class="line">      // List of routes to prerender</span><br><span class="line">      [&apos;/&apos;]</span><br><span class="line">    )</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后写骨架屏的文件： main.skeleton.vue  // 骨架屏的文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=&quot;main-skeleton&quot;&gt;</span><br><span class="line">    &lt;w-skeleton height=&quot;80px&quot;&gt;&lt;/w-skeleton&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;div class=&quot;skeleton-container&quot;&gt;</span><br><span class="line">        &lt;div class=&quot;skeleton&quot;&gt;</span><br><span class="line">          &lt;div height=&quot;300px&quot;&gt;&lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">        &lt;div height=&quot;45px&quot;&gt;&lt;/div&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">      &lt;div class=&quot;skeleton-bottom&quot;&gt;</span><br><span class="line">        &lt;div height=&quot;45px&quot;&gt;&lt;/div&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">.skeleton-container &#123;</span><br><span class="line">width: 960px;</span><br><span class="line">margin: 0 auto;</span><br><span class="line">text-align: center;</span><br><span class="line">padding: 100px 0;</span><br><span class="line">&#125;</span><br><span class="line">.skeleton-bottom &#123;</span><br><span class="line">width: 960px;</span><br><span class="line">margin: 0 auto;</span><br><span class="line">text-align: center;</span><br><span class="line">&#125;</span><br><span class="line">.skeleton &#123;</span><br><span class="line">margin: 0 auto;</span><br><span class="line">width: 300px;</span><br><span class="line">margin-bottom: 56px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="当初次进入页面的时候我们需要显示骨架屏，数据加载完后，需要移除骨架屏。"><a href="#当初次进入页面的时候我们需要显示骨架屏，数据加载完后，需要移除骨架屏。" class="headerlink" title="当初次进入页面的时候我们需要显示骨架屏，数据加载完后，需要移除骨架屏。"></a>当初次进入页面的时候我们需要显示骨架屏，数据加载完后，需要移除骨架屏。</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=<span class="string">"app"</span>&gt;</span><br><span class="line">    &lt;mainSkeleton v-<span class="keyword">if</span>=<span class="string">"!init"</span>&gt;&lt;/mainSkeleton&gt;</span><br><span class="line">    &lt;div v-<span class="keyword">else</span>&gt;</span><br><span class="line">      &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"body"</span>&gt;&lt;/div&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">import mainSkeleton from './m</span>ain.skeleton.vue<span class="string">'</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  export default &#123;</span></span><br><span class="line"><span class="string">    name: '</span>app<span class="string">',</span></span><br><span class="line"><span class="string">    data () &#123;</span></span><br><span class="line"><span class="string">      return &#123;</span></span><br><span class="line"><span class="string">        init: false</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">    mounted () &#123;</span></span><br><span class="line"><span class="string">      //  这里模拟数据请求</span></span><br><span class="line"><span class="string">      setTimeout(() =&gt; &#123;</span></span><br><span class="line"><span class="string">        this.init = true</span></span><br><span class="line"><span class="string">      &#125;, 250)</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">    components: &#123;</span></span><br><span class="line"><span class="string">      mainSkeleton</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="自动生成骨架屏，一个插件："><a href="#自动生成骨架屏，一个插件：" class="headerlink" title="自动生成骨架屏，一个插件："></a>自动生成骨架屏，一个插件：</h3><h3 id="vue-skeleton-webpack-plugin：基于vue的webpack插件，为单页和多页应用生成skeleton，提升首屏展示体验。"><a href="#vue-skeleton-webpack-plugin：基于vue的webpack插件，为单页和多页应用生成skeleton，提升首屏展示体验。" class="headerlink" title="vue-skeleton-webpack-plugin：基于vue的webpack插件，为单页和多页应用生成skeleton，提升首屏展示体验。"></a>vue-skeleton-webpack-plugin：基于vue的webpack插件，为单页和多页应用生成skeleton，提升首屏展示体验。</h3><h3 id="这个插件从下面三个部分实现细节："><a href="#这个插件从下面三个部分实现细节：" class="headerlink" title="这个插件从下面三个部分实现细节："></a>这个插件从下面三个部分实现细节：</h3><ol>
+<li>使用 Vue 预渲染骨架屏</li>
+<li>将骨架屏渲染结果插入 HTML 模版中</li>
+<li>开发模式下插入各个骨架屏路由</li>
+</ol>
+<h3 id="使用-Vue-预渲染骨架屏"><a href="#使用-Vue-预渲染骨架屏" class="headerlink" title="使用 Vue 预渲染骨架屏"></a>使用 Vue 预渲染骨架屏</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 首先需要创建一个仅使用骨架屏组件的入口文件：</span></span><br><span class="line"><span class="comment">// src/entry-skeleton.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Skeleton <span class="keyword">from</span> <span class="string">'./Skeleton.vue'</span>;</span><br><span class="line"><span class="comment">// 创建一个骨架屏 Vue 实例</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        Skeleton</span><br><span class="line">    &#125;,</span><br><span class="line">    template: <span class="string">'&lt;skeleton /&gt;'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 接下来创建一个用于服务端渲染的 webpack 配置对象，将刚创建的入口文件指定为 entry 依赖入口：</span></span><br><span class="line"><span class="comment">// webpack.skeleton.conf.js</span></span><br><span class="line">&#123;</span><br><span class="line">    target: <span class="string">'node'</span>, <span class="comment">// 区别默认的 'web'</span></span><br><span class="line">    entry: resolve(<span class="string">'./src/entry-skeleton.js'</span>), <span class="comment">// 多页传入对象</span></span><br><span class="line">    output: &#123;</span><br><span class="line">        libraryTarget: <span class="string">'commonjs2'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    externals: nodeExternals(&#123;</span><br><span class="line">        whitelist: <span class="regexp">/\.css$/</span></span><br><span class="line">    &#125;),</span><br><span class="line">    plugins: []</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 然后我们将这个 webpack 配置对象通过参数传入骨架屏插件中。</span></span><br><span class="line"><span class="comment">// webpack.dev.conf.js</span></span><br><span class="line">plugins: [</span><br><span class="line">    <span class="keyword">new</span> SkeletonWebpackPlugin(&#123; <span class="comment">// 我们编写的插件</span></span><br><span class="line">        webpackConfig: <span class="built_in">require</span>(<span class="string">'./webpack.skeleton.conf'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">// config/index.js</span></span><br><span class="line">build: &#123;</span><br><span class="line">    <span class="comment">// Template for index.html</span></span><br><span class="line">    index: path.resolve(__dirname, <span class="string">'../docs/index.html'</span>),</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Paths    </span></span><br><span class="line">    assetsRoot: path.resolve(__dirname, <span class="string">'../docs'</span>),</span><br><span class="line">    assetsSubDirectory: <span class="string">'static'</span>,</span><br><span class="line">    assetsPublicPath: <span class="string">'/‘,</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// docs/index.html   是骨架屏文件的导入</span></span><br></pre></td></tr></table></figure>
+<p>骨架屏的应用： 饿了么，淘宝，支付宝、简书、知乎、掘金等</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/20/D3实现柱状图/" rel="next" title="D3实现柱状图">
+                <i class="fa fa-chevron-left"></i> D3实现柱状图
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/20/D3实现环形图/" rel="prev" title="D3实现环形图">
+                D3实现环形图 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/xianyuwang.jpg" alt="咸鱼王">
+          <p class="site-author-name" itemprop="name">咸鱼王</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives">
+            
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Notdefind" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5333359020" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      微博
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#用户体验一直是前端开发需要考虑的重要部分，在数据请求时常见到锁屏的loading动画，而现在越来越多的产品倾向于使用Skeleton-Screen-Loading-骨架屏-替代，以优化用户体验。"><span class="nav-number">1.</span> <span class="nav-text">用户体验一直是前端开发需要考虑的重要部分，在数据请求时常见到锁屏的loading动画，而现在越来越多的产品倾向于使用Skeleton Screen Loading(骨架屏)替代，以优化用户体验。</span></a></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么我们需要骨架页面"><span class="nav-number"></span> <span class="nav-text">为什么我们需要骨架页面</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#骨架页面是在页面真正解析和应用启动之前给用户展示页面的-CSS-样式和页面布局，并通过骨架页面的明暗变化，告知用户页面正在努力加载中，让用户感知页面似乎加载得比以前快了。当应用启动、数据获取后，通过真实数据渲染的页面替换骨架页面。"><span class="nav-number">0.1.</span> <span class="nav-text">骨架页面是在页面真正解析和应用启动之前给用户展示页面的 CSS 样式和页面布局，并通过骨架页面的明暗变化，告知用户页面正在努力加载中，让用户感知页面似乎加载得比以前快了。当应用启动、数据获取后，通过真实数据渲染的页面替换骨架页面。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在骨架页面出现之前，很多应用在真实数据获取之前，都是采用-Loading-图标的形式告诉用户数据正在加载，请等待，但是用户此时无法感知即将呈现的页面，也无法确定等待的时长，千篇一律的-Loading-图标已经让用户产生了审美疲劳，长时间的等待促使用户-产生等待焦虑，根据-Google-Research-的研究显示，53-的用户在等待加载-3s-后，选择关闭-Web-页面或应用，导致用户流失。而骨架页面让用户觉得数据已经加载好，只是还在渲染过程中，这也是为什么用户觉得页面加载得比之前快的原因所在。同时由于骨架页面和真实页面样式布局完全一致，在用户视觉感知上，骨架页面可以平滑的切换到真实数据渲染的页面。如果是通过-Loading-图标切换到最终页面，用户感知上会显得比较突兀。"><span class="nav-number">0.2.</span> <span class="nav-text">在骨架页面出现之前，很多应用在真实数据获取之前，都是采用 Loading 图标的形式告诉用户数据正在加载，请等待，但是用户此时无法感知即将呈现的页面，也无法确定等待的时长，千篇一律的 Loading 图标已经让用户产生了审美疲劳，长时间的等待促使用户 产生等待焦虑，根据 Google Research 的研究显示，53% 的用户在等待加载 3s 后，选择关闭 Web 页面或应用，导致用户流失。而骨架页面让用户觉得数据已经加载好，只是还在渲染过程中，这也是为什么用户觉得页面加载得比之前快的原因所在。同时由于骨架页面和真实页面样式布局完全一致，在用户视觉感知上，骨架页面可以平滑的切换到真实数据渲染的页面。如果是通过 Loading 图标切换到最终页面，用户感知上会显得比较突兀。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在-JS-代码解析完成之前，页面不会展示任何内容，也就是所谓的白屏。用户是极其不喜欢看到白屏的，什么都没有展示，用户很有可能怀疑网络或者应用出了什么问题。-拿-Vue-来说，在页面加载出来之前会先对数据做一些处理，比如-开始创建、初始化数据、编译模板、挂载Dom等，这也是需要消耗时间的，-这也势必导致页面启动阶段比非-JS-驱动（比如-jQuery-应用）的页面要慢一些。这就是vue与jq的页面的区别。"><span class="nav-number">1.</span> <span class="nav-text">在 JS 代码解析完成之前，页面不会展示任何内容，也就是所谓的白屏。用户是极其不喜欢看到白屏的，什么都没有展示，用户很有可能怀疑网络或者应用出了什么问题。 拿 Vue 来说，在页面加载出来之前会先对数据做一些处理，比如 开始创建、初始化数据、编译模板、挂载Dom等，这也是需要消耗时间的， 这也势必导致页面启动阶段比非 JS 驱动（比如 jQuery 应用）的页面要慢一些。这就是vue与jq的页面的区别。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#骨架屏是什么"><span class="nav-number"></span> <span class="nav-text">骨架屏是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#骨架页面（Skeleton-Page）指的是当你打开一个移动端-web-页面，在页面解析和数据加载之前，首先给用户展示页面的大概样式。在骨架页面中，图片、文字、图标都将通过灰色矩形块来展示，在真实页面展示之前，用户能够感知到即将加载页面的基本-CSS-样式和页面布局。饿了么移动-web-端骨架页面如题图所示。"><span class="nav-number">1.</span> <span class="nav-text">骨架页面（Skeleton Page）指的是当你打开一个移动端 web 页面，在页面解析和数据加载之前，首先给用户展示页面的大概样式。在骨架页面中，图片、文字、图标都将通过灰色矩形块来展示，在真实页面展示之前，用户能够感知到即将加载页面的基本 CSS 样式和页面布局。饿了么移动 web 端骨架页面如题图所示。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在生成骨架页面的方案中，首先将页面根据不同元素分成不同的块，分块细则如下："><span class="nav-number">2.</span> <span class="nav-text">在生成骨架页面的方案中，首先将页面根据不同元素分成不同的块，分块细则如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文本块：包含唯一文本节点的-DOM-元素被视为文本块"><span class="nav-number">3.</span> <span class="nav-text">文本块：包含唯一文本节点的 DOM 元素被视为文本块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片块：IMG-元素或者背景为图片的元素被视为图片块"><span class="nav-number">4.</span> <span class="nav-text">图片块：IMG 元素或者背景为图片的元素被视为图片块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SVG块：SVG-元素被视为-SVG-块"><span class="nav-number">5.</span> <span class="nav-text">SVG块：SVG 元素被视为 SVG 块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪元素块：-before-、-after-伪类元素由于在页面中也会有展示，因此也需要做处理，被视为伪元素块"><span class="nav-number">6.</span> <span class="nav-text">伪元素块：::before 、 ::after 伪类元素由于在页面中也会有展示，因此也需要做处理，被视为伪元素块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按钮块：BUTTON、INPUT-type-button-、A-role-button-等元素被视为按钮块，这儿需要注意一点，我们只将role-button-的-A-元素视为按钮块，其实如果需要将一个-A-元素视为按钮，为其添加一个-role-button-的特性是很有必要的，这也符合了前端可访问性的要求。-role-button-代表该元素是一个按钮"><span class="nav-number">7.</span> <span class="nav-text">按钮块：BUTTON、INPUT [type=button]、A [role=button] 等元素被视为按钮块，这儿需要注意一点，我们只将role=button 的 A 元素视为按钮块，其实如果需要将一个 A 元素视为按钮，为其添加一个 role=button 的特性是很有必要的，这也符合了前端可访问性的要求。(role=button 代表该元素是一个按钮)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将元素区分为不同块后，下一步就是对这些块分别进行处理，包括元素的增减和样式的覆盖，目的只有一个，就是将这些块转化为骨架页面的样式，也就是题图中右边的样子"><span class="nav-number">8.</span> <span class="nav-text">将元素区分为不同块后，下一步就是对这些块分别进行处理，包括元素的增减和样式的覆盖，目的只有一个，就是将这些块转化为骨架页面的样式，也就是题图中右边的样子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#骨架屏优势："><span class="nav-number"></span> <span class="nav-text">骨架屏优势：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#锁屏loading在一定程度限制了用户的操作，所以为了进一步提升用户体验，Skeleton-Screen被越来越多的公司产品采用，如：Facebook、简书、知乎、掘金等，在动态、文章加载时预先渲染出结构布局，数据加载完成后再填充数据显示，这样的好处在于不干扰用户操作，使用户对于加载的内容有一个大致的预期，特别是弱网络环境下极大的优化了用户体验。"><span class="nav-number">1.</span> <span class="nav-text">锁屏loading在一定程度限制了用户的操作，所以为了进一步提升用户体验，Skeleton Screen被越来越多的公司产品采用，如：Facebook、简书、知乎、掘金等，在动态、文章加载时预先渲染出结构布局，数据加载完成后再填充数据显示，这样的好处在于不干扰用户操作，使用户对于加载的内容有一个大致的预期，特别是弱网络环境下极大的优化了用户体验。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现的主要步骤："><span class="nav-number">2.</span> <span class="nav-text">实现的主要步骤：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一种："><span class="nav-number">3.</span> <span class="nav-text">第一种：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#prerender-预生成-渲染骨架屏："><span class="nav-number">4.</span> <span class="nav-text">prerender(预生成)渲染骨架屏：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首先要配置webpack-plugin-文件位置-build-webpack-prod-conf-js-，"><span class="nav-number">5.</span> <span class="nav-text">首先要配置webpack-plugin(文件位置:build/webpack.prod.conf.js)，</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#已经有实现好的prerender-spa-plugin。"><span class="nav-number">6.</span> <span class="nav-text">已经有实现好的prerender-spa-plugin。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#是提供一个简单的预呈现解决方案，该解决方案易于扩展，可用于使用webpack构建的任何站点或单页面应用程序"><span class="nav-number">7.</span> <span class="nav-text">(是提供一个简单的预呈现解决方案，该解决方案易于扩展，可用于使用webpack构建的任何站点或单页面应用程序)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体代码如下："><span class="nav-number">8.</span> <span class="nav-text">具体代码如下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#当初次进入页面的时候我们需要显示骨架屏，数据加载完后，需要移除骨架屏。"><span class="nav-number">9.</span> <span class="nav-text">当初次进入页面的时候我们需要显示骨架屏，数据加载完后，需要移除骨架屏。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动生成骨架屏，一个插件："><span class="nav-number">10.</span> <span class="nav-text">自动生成骨架屏，一个插件：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vue-skeleton-webpack-plugin：基于vue的webpack插件，为单页和多页应用生成skeleton，提升首屏展示体验。"><span class="nav-number">11.</span> <span class="nav-text">vue-skeleton-webpack-plugin：基于vue的webpack插件，为单页和多页应用生成skeleton，提升首屏展示体验。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#这个插件从下面三个部分实现细节："><span class="nav-number">12.</span> <span class="nav-text">这个插件从下面三个部分实现细节：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-Vue-预渲染骨架屏"><span class="nav-number">13.</span> <span class="nav-text">使用 Vue 预渲染骨架屏</span></a></li></ol></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2015 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">咸鱼王</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

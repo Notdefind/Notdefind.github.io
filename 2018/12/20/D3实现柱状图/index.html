@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="咸鱼王的博客">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="**D3.js是什么？   D3.js顾名思义，由3个首字母为D的单词（Data-Driven Documents，数据驱动的文档）组成，是一个JavaScript库，它可以通过数据来操作文档。D3可以通过使用HTML、SVG和CSS把数据鲜活形象地展现出来。 **常见的框架的区别：1.Echarts是一个免费的，功能强大的制图和可视化库。提供一个简单的方法来实现添加直观的，互动的的图表。它是用纯">
+<meta property="og:type" content="article">
+<meta property="og:title" content="D3实现柱状图">
+<meta property="og:url" content="http://yoursite.com/2018/12/20/D3实现柱状图/index.html">
+<meta property="og:site_name" content="咸鱼王">
+<meta property="og:description" content="**D3.js是什么？   D3.js顾名思义，由3个首字母为D的单词（Data-Driven Documents，数据驱动的文档）组成，是一个JavaScript库，它可以通过数据来操作文档。D3可以通过使用HTML、SVG和CSS把数据鲜活形象地展现出来。 **常见的框架的区别：1.Echarts是一个免费的，功能强大的制图和可视化库。提供一个简单的方法来实现添加直观的，互动的的图表。它是用纯">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4762054-45174e72ed043a8a.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4762054-93e0f16104bc5545.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/984/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4762054-638001ef464c5cf6.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/4762054-42d5fac07d1143e8.png">
+<meta property="og:updated_time" content="2018-12-20T03:45:44.822Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="D3实现柱状图">
+<meta name="twitter:description" content="**D3.js是什么？   D3.js顾名思义，由3个首字母为D的单词（Data-Driven Documents，数据驱动的文档）组成，是一个JavaScript库，它可以通过数据来操作文档。D3可以通过使用HTML、SVG和CSS把数据鲜活形象地展现出来。 **常见的框架的区别：1.Echarts是一个免费的，功能强大的制图和可视化库。提供一个简单的方法来实现添加直观的，互动的的图表。它是用纯">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/4762054-45174e72ed043a8a.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/20/D3实现柱状图/">
+
+
+
+
+
+  <title>D3实现柱状图 | 咸鱼王</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">咸鱼王</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/20/D3实现柱状图/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="咸鱼王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/xianyuwang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="咸鱼王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">D3实现柱状图</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-20T11:35:40+08:00">
+                2018-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="D3-js是什么？"><a href="#D3-js是什么？" class="headerlink" title="**D3.js是什么？"></a><strong>**</strong>D3.js是什么？</h2><p>   D3.js顾名思义，由3个首字母为D的单词（Data-Driven Documents，数据驱动的文档）组成，是一个JavaScript库，它可以通过数据来操作文档。D3可以通过使用HTML、SVG和CSS把数据鲜活形象地展现出来。</p>
+<h2 id="常见的框架的区别："><a href="#常见的框架的区别：" class="headerlink" title="**常见的框架的区别："></a><strong>**</strong>常见的框架的区别：</h2><p>1.Echarts是一个免费的，功能强大的制图和可视化库。提供一个简单的方法来实现添加直观的，互动的的图表。它是用纯JavaScript和基于zrender（H5 canvas类库），一个全新的轻巧canvas库。 Echarts上手容易，中文API相当完善，调用方式简单，而且图表样式美观，调用百度地图也是非常快捷。<br>2.Hicharts兼容 IE6+、完美支持移动端、图表类型丰富、方便快捷的 HTML5 交互性图表库。<br>3.Chart.js 是一套简单、干净并且有吸引力的基于HTML5 技术的JavaScript 图表工具。Chart.js 为你提供了完整的易于集成到你的网站的生动、交互的图表。开源的。<br>4.D3.v3 基于SVG，方便自己定制；D3.v4支持Canvas+SVG，如果计算比较密集，也可以选择用Canvas。除此之外，D3图表类型非常丰富，几乎可以满足所有开发需求，</p>
+<h2 id="介绍一些D3的基础概念："><a href="#介绍一些D3的基础概念：" class="headerlink" title="**介绍一些D3的基础概念："></a><strong>**</strong>介绍一些D3的基础概念：</h2><p>1.选择集<br>使用 d3.select() 或 d3.selectAll() 选择元素后返回的对象，就是选择集</p>
+<p>2.无名函数<br>function(d, i) 这个函数以后经常要使用到<br>d 代表数据，也就是与某元素绑定的数据。<br>i 代表索引，代表数据的索引号，从 0 开始。</p>
+<h2 id="D3的数据绑定"><a href="#D3的数据绑定" class="headerlink" title="**D3的数据绑定"></a><strong>**</strong>D3的数据绑定</h2><p>D3可以用两种函数来绑定数据：<br>datum()： 绑定一个数据到选择集上，这里的数据并非一定要是number（数值型），也可以是string（字符串）、bollean（布尔型）和object（对象）<br>data()： 绑定一个数组到选择集上，数组的各项值分别与选择集的各元素绑定，更常用<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dataset = [<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>,<span class="number">40</span>,<span class="number">50</span>];</span><br><span class="line"><span class="keyword">var</span> body = d3.select(<span class="string">"body"</span>);</span><br><span class="line"></span><br><span class="line">body.selectAll(<span class="string">"p"</span>)  <span class="comment">//选择body中的所有p，但是目前还没有，所以是空集</span></span><br><span class="line">    .data(dataset)  <span class="comment">//绑定数组</span></span><br><span class="line">    .enter()  <span class="comment">//指定选择集的enter部分</span></span><br><span class="line">    .append(<span class="string">"p"</span>)</span><br><span class="line">    .text(<span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> d;</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure></p>
+<p>这里要解释下 Enter 的概念，它与Update、Exit是D3中三个非常重要的概念，处理的是当选择集和数据的数量关系不确定的情况。</p>
+<p>如果数组为 [3, 6, 9, 12, 15]，将此数组绑定到三个 p 元素的选择集上。可以想象，会有两个数据没有元素与之对应，这时候 D3 会建立两个空的元素与数据对应，这一部分就称为 Enter。而有元素与数据对应的部分称为 Update。如果数组为 [3]，则会有两个元素没有数据绑定，那么没有数据绑定的部分被称为 Exit。示意图如下所示。</p>
+<p>##<br><img src="https://upload-images.jianshu.io/upload_images/4762054-45174e72ed043a8a.png" alt=""></p>
+<h2 id="D3-js绘制柱状图的步骤："><a href="#D3-js绘制柱状图的步骤：" class="headerlink" title="D3.js绘制柱状图的步骤："></a>D3.js绘制柱状图的步骤：</h2><p>一个完整的柱形图包含三部分：矩形、文字、坐标轴</p>
+<p>1.「添加一个svg画布」<br> 定义了一个 padding，是为了给 SVG 的周边留一个空白</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//画布大小</span></span><br><span class="line"><span class="keyword">var</span> width = <span class="number">400</span>;</span><br><span class="line"><span class="keyword">var</span> height = <span class="number">400</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在 body 里添加一个 SVG 画布</span></span><br><span class="line"><span class="keyword">var</span> svg = d3.select(<span class="string">"body"</span>)</span><br><span class="line">    .append(<span class="string">"svg"</span>)</span><br><span class="line">    .attr(<span class="string">"width"</span>, width)</span><br><span class="line">    .attr(<span class="string">"height"</span>, height);</span><br><span class="line"></span><br><span class="line"><span class="comment">//画布周边的空白</span></span><br><span class="line"> <span class="keyword">var</span> padding = &#123;<span class="attr">left</span>:<span class="number">30</span>, <span class="attr">right</span>:<span class="number">30</span>, <span class="attr">top</span>:<span class="number">20</span>, <span class="attr">bottom</span>:<span class="number">20</span>&#125;;</span><br></pre></td></tr></table></figure>
+<p>##<br><img src="https://upload-images.jianshu.io/upload_images/4762054-93e0f16104bc5545.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/984/format/webp" alt=""></p>
+<p>2.「定义数据和比例尺」<br> x 轴使用序数比例尺，y 轴使用线性比例尺<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义一个数组</span></span><br><span class="line"><span class="keyword">var</span> dataset = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">33</span>, <span class="number">24</span>, <span class="number">12</span>, <span class="number">5</span>, <span class="string">''</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//x轴的比例尺</span></span><br><span class="line"><span class="keyword">var</span> xScale = d3.scale.ordinal()</span><br><span class="line">    .domain(d3.range(dataset.length))</span><br><span class="line">    .rangeRoundBands([<span class="number">0</span>, width - padding.left - padding.right]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//y轴的比例尺</span></span><br><span class="line"><span class="keyword">var</span> yScale = d3.scale.linear()</span><br><span class="line">    .domain([<span class="number">0</span>,d3.max(dataset)])</span><br><span class="line">    .range([height - padding.top - padding.bottom, <span class="number">0</span>]);</span><br></pre></td></tr></table></figure></p>
+<p>3.「定义坐标轴」<br>x 轴刻度的方向向下，y 轴的向左。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定义x轴</span></span><br><span class="line"><span class="keyword">var</span> xAxis = d3.svg.axis()</span><br><span class="line">    .scale(xScale)</span><br><span class="line">    .orient(<span class="string">"bottom"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义y轴</span></span><br><span class="line"><span class="keyword">var</span> yAxis = d3.svg.axis()</span><br><span class="line">    .scale(yScale)</span><br><span class="line">    .orient(<span class="string">"left"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>##<br><img src="https://upload-images.jianshu.io/upload_images/4762054-638001ef464c5cf6.png" alt=""></p>
+<p>##<br>4.「添加矩形和文字元素」<br>矩形元素和文字元素的 x 和 y 坐标要特别注意，要结合比例尺给予适当的值。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//矩形之间的空白</span></span><br><span class="line"><span class="keyword">var</span> rectPadding = <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//添加矩形元素</span></span><br><span class="line"><span class="keyword">var</span> rects = svg.selectAll(<span class="string">".MyRect"</span>)</span><br><span class="line">        .data(dataset)</span><br><span class="line">        .enter()</span><br><span class="line">        .append(<span class="string">"rect"</span>)</span><br><span class="line">        .attr(<span class="string">"class"</span>,<span class="string">"MyRect"</span>)</span><br><span class="line">        .attr(<span class="string">"transform"</span>,<span class="string">"translate("</span> + padding.left + <span class="string">","</span> + padding.top + <span class="string">")"</span>)</span><br><span class="line">        .attr(<span class="string">"x"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">d,i</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> xScale(i) + rectPadding/<span class="number">2</span>;</span><br><span class="line">        &#125; )</span><br><span class="line">        .attr(<span class="string">"y"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> yScale(d);</span><br><span class="line">        &#125;)</span><br><span class="line">        .attr(<span class="string">"width"</span>, xScale.rangeBand() - rectPadding )</span><br><span class="line">        .attr(<span class="string">"height"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> height - padding.top - padding.bottom - yScale(d);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//添加文字元素</span></span><br><span class="line"><span class="keyword">var</span> texts = svg.selectAll(<span class="string">".MyText"</span>)</span><br><span class="line">        .data(dataset)</span><br><span class="line">        .enter()</span><br><span class="line">        .append(<span class="string">"text"</span>)</span><br><span class="line">        .attr(<span class="string">"class"</span>,<span class="string">"MyText"</span>)</span><br><span class="line">        .attr(<span class="string">"transform"</span>,<span class="string">"translate("</span> + padding.left + <span class="string">","</span> + padding.top + <span class="string">")"</span>)</span><br><span class="line">        .attr(<span class="string">"x"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">d,i</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> xScale(i) + rectPadding/<span class="number">2</span>;</span><br><span class="line">        &#125; )</span><br><span class="line">        .attr(<span class="string">"y"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> yScale(d);</span><br><span class="line">        &#125;)</span><br><span class="line">        .attr(<span class="string">"dx"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> (xScale.rangeBand() - rectPadding)/<span class="number">2</span>;</span><br><span class="line">        &#125;)</span><br><span class="line">        .attr(<span class="string">"dy"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">20</span>;</span><br><span class="line">        &#125;)</span><br><span class="line">        .text(<span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> d;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>##<br><img src="https://upload-images.jianshu.io/upload_images/4762054-42d5fac07d1143e8.png" alt=""></p>
+<p>##<br>5.「添加坐标轴的元素」<br> 坐标轴的位置要结合空白 padding 的值来设定。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//添加x轴</span></span><br><span class="line">svg.append(<span class="string">"g"</span>)</span><br><span class="line">  .attr(<span class="string">"class"</span>,<span class="string">"axis"</span>)</span><br><span class="line">  .attr(<span class="string">"transform"</span>,<span class="string">"translate("</span> + padding.left + <span class="string">","</span> + (height - padding.bottom) + <span class="string">")"</span>)</span><br><span class="line">  .call(xAxis);</span><br><span class="line"></span><br><span class="line"><span class="comment">//添加y轴</span></span><br><span class="line">svg.append(<span class="string">"g"</span>)</span><br><span class="line">  .attr(<span class="string">"class"</span>,<span class="string">"axis"</span>)</span><br><span class="line">  .attr(<span class="string">"transform"</span>,<span class="string">"translate("</span> + padding.left + <span class="string">","</span> + padding.top + <span class="string">")"</span>)</span><br><span class="line">  .call(yAxis);</span><br></pre></td></tr></table></figure></p>
+<h2 id="比例尺的区别："><a href="#比例尺的区别：" class="headerlink" title="比例尺的区别："></a>比例尺的区别：</h2><pre><code>linear 创造一个线性比例尺，domain是输入域，range是输出域，相当于domain中的数据集映射到range的数据集中。
+* let scale = d3.scaleLinear().domain([1,5]).range([0,100])
+* scale(1) // 输出:0  scale(4) // 输出:75  scale(5) // 输出:100
+* 输入的不是domain中的数据集时  scale(-1) // 输出:-50  scale(10) // 输出:225
+* 只是定义了一个映射规则，映射的输入值并不局限于domain()中的输入域。
+*
+* scaleBand 序数比例尺。 并不是一个连续性的比例尺。domain中使用一个数组，range需要的是一个连续域。
+* let scale = d3.scaleBand().domain([1,2,3,4]).range([0,100])
+* scale(1) // 输出:0  scale(4) // 输出:75  scale(5) // 输出:100
+* 输入的不是domain中的数据集时 scale(0)  // 输出:undefined  scale(10) // 输出:undefined
+* 总结：只针对domain()中的数据集映射相应的值
+*
+*
+* ordinal 序数比例尺 输入域和输出域都使用离散的数据。
+* let scale = d3.scaleOrdinal().domain([&apos;jack&apos;, &apos;rose&apos;, &apos;john&apos;]).range([10, 20, 30])
+* scale(&apos;jack&apos;) // 输出:10  scale(&apos;rose&apos;) // 输出:20  scale(&apos;john&apos;) // 输出:30
+* 输入的不是domain中的数据集时 scale(&apos;tom&apos;) // 输出:10  scale(&apos;trump&apos;) // 输出:20
+* 总结：domain()的值按照顺序循环依次对应range()的值。
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/03/redux/" rel="next" title="redux">
+                <i class="fa fa-chevron-left"></i> redux
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/20/骨架屏/" rel="prev" title="骨架屏">
+                骨架屏 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/xianyuwang.jpg" alt="咸鱼王">
+          <p class="site-author-name" itemprop="name">咸鱼王</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives">
+            
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Notdefind" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5333359020" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      微博
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#D3-js是什么？"><span class="nav-number">1.</span> <span class="nav-text">**D3.js是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的框架的区别："><span class="nav-number">2.</span> <span class="nav-text">**常见的框架的区别：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍一些D3的基础概念："><span class="nav-number">3.</span> <span class="nav-text">**介绍一些D3的基础概念：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#D3的数据绑定"><span class="nav-number">4.</span> <span class="nav-text">**D3的数据绑定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#D3-js绘制柱状图的步骤："><span class="nav-number">5.</span> <span class="nav-text">D3.js绘制柱状图的步骤：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#比例尺的区别："><span class="nav-number">6.</span> <span class="nav-text">比例尺的区别：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2015 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">咸鱼王</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
